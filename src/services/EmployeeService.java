@@ -1,14 +1,13 @@
 package services;
 
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.ui.Model;
 import pojo.EMPLOYEES;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -104,5 +103,41 @@ public class EmployeeService {
         query.addEntity(EMPLOYEES.class);
         return query.list();
     }
+
+
+    public List<EMPLOYEES> search(boolean[] filters, String name, String surname, Date hDate, String job, String mgr, String sal){
+        Session session = getSession();
+        List<EMPLOYEES> employees = null;
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(EMPLOYEES.class);
+        if (filters[0] == true){
+            criteria.add(Restrictions.eq("firstName", name));
+        }
+
+        if (filters[1] == true){
+            criteria.add(Restrictions.eq("secondName", surname));
+        }
+
+        if (filters[2] == true){
+            criteria.add(Restrictions.eq("hireDate", hDate));
+        }
+
+        if (filters[3] == true){
+            criteria.add(Restrictions.eq("job", job));
+        }
+
+        if (filters[4] == true){
+            criteria.add(Restrictions.eq("mgr", Integer.parseInt(mgr)));
+        }
+
+        if (filters[5] == true){
+            criteria.add(Restrictions.eq("sal", Integer.parseInt(sal)));
+        }
+        employees = criteria.list();
+        session.getTransaction().commit();
+
+        return employees;
+    }
+
 
 }

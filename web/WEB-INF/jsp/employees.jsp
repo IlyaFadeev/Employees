@@ -16,12 +16,6 @@
 <body>
 
 
-<form action="search">
-    <input type="text" name="sVal">
-    <input type="submit" value="search">
-    <br>
-    <br>
-</form>
 <h1>
     Employee:
 </h1>
@@ -211,6 +205,11 @@
 <br>
 <br>
 
+<form action="filter">
+    <input type="submit" value="filters">
+</form>
+<br>
+<br>
 <form action="addemp">
     <input type="submit" value="add">
     <br>

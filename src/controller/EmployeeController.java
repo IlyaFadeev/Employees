@@ -176,11 +176,83 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(Model model, @RequestParam(value="sVal", required=true) Integer empno){
+    public String search(Model model, @RequestParam(value="name", required=false, defaultValue = "null") String name, @RequestParam(value="surname", required=false, defaultValue = "null") String surname, @RequestParam(value="hiredate", required=false, defaultValue = "null") String hDAte, @RequestParam(value="job", required=false, defaultValue = "null") String job, @RequestParam(value="mgr", required=false, defaultValue = "null") String mgr, @RequestParam(value="sal", required=false, defaultValue = "null") String sal){
+        boolean[] filters = new boolean[6];
+        employeeService = new EmployeeService();
+        List<EMPLOYEES> employees = null;
 
-        return getPersons(model, empno);
+        if (!name.equals("")){
+            filters[0] = true;
+        }
+        else {
+            filters[0] = false;
+        }
+
+        if (!surname.equals("")){
+            filters[1] = true;
+        }
+        else {
+            filters[1] = false;
+        }
+
+        if (!hDAte.equals("")){
+            filters[2] = true;
+        }
+        else {
+            filters[2] = false;
+        }
+
+        if (!job.equals("")){
+            filters[3] = true;
+        }
+        else {
+            filters[3] = false;
+        }
+
+        if (!mgr.equals("")){
+            filters[4] = true;
+        }
+        else {
+            filters[4] = false;
+
+        }
+
+        if (!sal .equals("")){
+            filters[5] = true;
+        }
+        else {
+            filters[5] = false;
+        }
+
+        Date date1 = null;
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("mm-dd-yyyy");
+            java.util.Date date = null;
+            try {
+                date = formatter.parse(hDAte);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            date1 = new Date(date.getTime());
+        } catch (org.springframework.beans.ConversionNotSupportedException e) {
+            logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        employees = employeeService.search(filters, name, surname, date1, job, mgr, sal);
+
+        model.addAttribute("employees", employees);
+        
+        return "search";
     }
 
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    public String searchWithFilters(Model model){
+
+        return "filters";
+    }
 
 
 }
