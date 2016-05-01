@@ -245,7 +245,6 @@ public class EmployeeController {
         employees = employeesService.search(filters, name, surname, date1, job, mgr, sal);
 
         model.addAttribute("employees", employees);
-        
         return "search";
     }
 
