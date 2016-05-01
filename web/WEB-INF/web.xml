@@ -30,24 +30,4 @@
         </listener-class>
     </listener>
 
-    <servlet>
-        <servlet-name>DepartmentService</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>DepartmentService</servlet-name>
-        <url-pattern>/depts/*</url-pattern>
-    </servlet-mapping>
-
-    <context-param>
-        <param-name>contextConfLocation</param-name>
-        <param-value>/WEB-INF/DepartmentService-servlet.xml</param-value>
-    </context-param>
-
-
-
 </web-app>

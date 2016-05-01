@@ -5,9 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import pojo.DEPARTMENTS;
 import pojo.EMPLOYEES;
 import pojo.JOB;
 import pojo.LOCATE;
+import services.DepartmentService;
 import services.EmployeesService;
 import services.JobService;
 import services.LocateService;
@@ -253,5 +255,16 @@ public class EmployeeController {
         return "filters";
     }
 
+
+    private DepartmentService departmentService;
+
+    @RequestMapping(name="/departments", method= RequestMethod.GET)
+    public String getDepartments(Model model)
+    {
+        departmentService=new DepartmentService();
+        List<DEPARTMENTS> depts=departmentService.getAll();
+        model.addAttribute("depts", depts);
+        return "departments";
+    }
 
 }
