@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @javax.persistence.Table(name = "LOCATE")
-public class LOCATE {
+public class LOCATE implements Directory{
     @Id
     @Column(name = "LNO")
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "seq_loc")

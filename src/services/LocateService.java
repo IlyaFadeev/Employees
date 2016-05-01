@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import pojo.Directory;
 import pojo.JOB;
 import pojo.LOCATE;
 
@@ -14,7 +15,7 @@ import java.util.Locale;
 /**
  * Created by Fadeev on 4/18/2016.
  */
-public class LocateService {
+public class LocateService implements DirectoryService{
     AnnotationConfiguration aconf;
     Configuration conf;
     private SessionFactory factory;
@@ -41,5 +42,13 @@ public class LocateService {
         Query query = session.createQuery("FROM " + tableName);
 
         return query.list();
+    }
+
+    public void add(Directory locate)
+    {
+        Session session=getSession();
+        session.beginTransaction();
+        session.saveOrUpdate(locate);
+        session.getTransaction().commit();
     }
 }

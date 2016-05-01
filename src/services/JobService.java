@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import pojo.Directory;
 import pojo.EMPLOYEES;
 import pojo.JOB;
 
@@ -14,7 +15,7 @@ import java.util.Locale;
 /**
  * Created by Fadeev on 4/18/2016.
  */
-public class JobService {
+public class JobService implements DirectoryService {
     AnnotationConfiguration aconf;
     Configuration conf;
     private SessionFactory factory;
@@ -33,12 +34,17 @@ public class JobService {
         return session;
     }
 
-
     public List<JOB> getAll(){
         Session session = getSession();
-
         Query query = session.createQuery("FROM JOB");
-
         return query.list();
+    }
+
+    public void add(Directory job)
+    {
+        Session session=getSession();
+        session.beginTransaction();
+        session.saveOrUpdate(job);
+        session.getTransaction().commit();
     }
 }

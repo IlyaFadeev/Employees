@@ -1,6 +1,5 @@
 package controller;
 
-import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pojo.EMPLOYEES;
 import pojo.JOB;
 import pojo.LOCATE;
-import services.EmployeeService;
+import services.EmployeesService;
 import services.JobService;
 import services.LocateService;
 
@@ -25,24 +24,24 @@ import java.util.logging.Logger;
 @Controller
 public class EmployeeController {
     private Logger logger = Logger.getLogger(EmployeeController.class.getName());
-    private EmployeeService employeeService;
+    private EmployeesService employeesService;
     private JobService jobService;
     private LocateService locateService;
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public String getPersons(Model model, @RequestParam(value="empno", required=true, defaultValue = "1450") Integer empno){
         logger.info("Creating employee service...");
-        employeeService = new EmployeeService();
+        employeesService = new EmployeesService();
         logger.info("Employee service created.");
         logger.info("Getting all employees...");
-        EMPLOYEES employee = employeeService.getEmp(empno);
+        EMPLOYEES employee = employeesService.getEmp(empno);
 
         logger.info("Getting all managers for current employee...");
-        List<EMPLOYEES> mgrs = employeeService.getAllMgrForEmp(empno);
+        List<EMPLOYEES> mgrs = employeesService.getAllMgrForEmp(empno);
 
 
         logger.info("Getting all sub employees for current employee...");
-        List<EMPLOYEES> subEmployees = employeeService.getAllSubEmpForEmp(empno);
+        List<EMPLOYEES> subEmployees = employeesService.getAllSubEmpForEmp(empno);
 
 
         logger.info("Adding attributes...");
@@ -56,10 +55,10 @@ public class EmployeeController {
     @RequestMapping(value = "/addemp", method = RequestMethod.GET)
     public String addEmp(Model model){
         logger.info("Return add page.");
-        employeeService = new EmployeeService();
+        employeesService = new EmployeesService();
         jobService = new JobService();
         locateService = new LocateService();
-        List<EMPLOYEES> employees = employeeService.getAll();
+        List<EMPLOYEES> employees = employeesService.getAll();
         List<JOB> jobs = jobService.getAll();
         List<LOCATE> locates = locateService.getAll();
         model.addAttribute("empls", employees);
@@ -72,10 +71,10 @@ public class EmployeeController {
     public String saveEmp(Model model, @RequestParam(value="empno", required=false, defaultValue = "null") Integer empno,  @RequestParam(value="first_name", required=true) String fName, @RequestParam(value="last_name", required=true) String sName, @RequestParam(value="job", required=true) String job, @RequestParam(value="mgr", required=true) String mgr, @RequestParam(value="hiredate", required=true) String hDate, @RequestParam(value="salary", required=true) Integer sal, @RequestParam(value="deptno", required=true) Integer deptNo){
         logger.info("Start saving...");
         EMPLOYEES employee = new EMPLOYEES();
-        employeeService = new EmployeeService();
+        employeesService = new EmployeesService();
         Integer findedMgr = 0;
 
-        List<EMPLOYEES> employees = employeeService.getAll();
+        List<EMPLOYEES> employees = employeesService.getAll();
 
         for (EMPLOYEES employee1 : employees) {
             if (employee1.getFirstName().equals(mgr)){
@@ -111,7 +110,7 @@ public class EmployeeController {
         }
         else
         {
-            employee = employeeService.getEmp(empno);
+            employee = employeesService.getEmp(empno);
             employee.setDeptNo(null);
             employee.setFirstName(fName);
             employee.setSecondName(sName);
@@ -135,14 +134,14 @@ public class EmployeeController {
             employee.setSal(sal);
             employee.setDeptNo(deptNo);
         }
-        employeeService.addEmp(employee);
+        employeesService.addEmp(employee);
 
 
         logger.info("Creating employee service...");
-        employeeService = new EmployeeService();
+        employeesService = new EmployeesService();
         logger.info("Employee service created.");
         logger.info("Getting all employees...");
-        employees = employeeService.getAll();
+        employees = employeesService.getAll();
         logger.info("Adding attribute...");
         model.addAttribute("employees", employees);
 
@@ -151,20 +150,20 @@ public class EmployeeController {
 
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
     public String remove(Model model, @RequestParam(value="empno", required=true, defaultValue = "1450") Integer empno){
-        employeeService = new EmployeeService();
-        EMPLOYEES employee = employeeService.getEmp(empno);
-        employeeService.removeEmp(employee);
+        employeesService = new EmployeesService();
+        EMPLOYEES employee = employeesService.getEmp(empno);
+        employeesService.removeEmp(employee);
         model.addAttribute("name", employee.getFirstName());
         return "remove";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String update(Model model, @RequestParam(value="empno", required=true, defaultValue = "1450") Integer empno){
-        employeeService = new EmployeeService();
-        EMPLOYEES employee = employeeService.getEmp(empno);
+        employeesService = new EmployeesService();
+        EMPLOYEES employee = employeesService.getEmp(empno);
         jobService = new JobService();
         locateService = new LocateService();
-        List<EMPLOYEES> employees = employeeService.getAll();
+        List<EMPLOYEES> employees = employeesService.getAll();
         List<JOB> jobs = jobService.getAll();
         List<LOCATE> locates = locateService.getAll();
         model.addAttribute("empls", employees);
@@ -178,7 +177,7 @@ public class EmployeeController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String search(Model model, @RequestParam(value="name", required=false, defaultValue = "null") String name, @RequestParam(value="surname", required=false, defaultValue = "null") String surname, @RequestParam(value="hiredate", required=false, defaultValue = "null") String hDAte, @RequestParam(value="job", required=false, defaultValue = "null") String job, @RequestParam(value="mgr", required=false, defaultValue = "null") String mgr, @RequestParam(value="sal", required=false, defaultValue = "null") String sal){
         boolean[] filters = new boolean[6];
-        employeeService = new EmployeeService();
+        employeesService = new EmployeesService();
         List<EMPLOYEES> employees = null;
 
         if (!name.equals("")){
@@ -241,7 +240,7 @@ public class EmployeeController {
             e.printStackTrace();
         }
 
-        employees = employeeService.search(filters, name, surname, date1, job, mgr, sal);
+        employees = employeesService.search(filters, name, surname, date1, job, mgr, sal);
 
         model.addAttribute("employees", employees);
         

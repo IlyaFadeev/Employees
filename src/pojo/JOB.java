@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "JOB")
-public class JOB {
+public class JOB implements Directory{
     @Id
     @Column(name = "JNO")
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "seq_job")

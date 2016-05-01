@@ -14,7 +14,7 @@ import java.util.Locale;
 /**
  * Created by Fadeev on 4/17/2016.
  */
-public class EmployeeService {
+public class EmployeesService {
 
     AnnotationConfiguration aconf;
     Configuration conf;
@@ -22,7 +22,7 @@ public class EmployeeService {
 
     private Session session;
 
-    public EmployeeService(){
+    public EmployeesService(){
         this.aconf = new AnnotationConfiguration().addAnnotatedClass(EMPLOYEES.class);
         this.conf = aconf.configure();
         this.factory = conf.buildSessionFactory();
