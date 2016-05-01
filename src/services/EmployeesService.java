@@ -5,6 +5,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.ui.Model;
+import pojo.DEPARTMENTS;
 import pojo.EMPLOYEES;
 
 import java.sql.Date;
@@ -138,6 +139,5 @@ public class EmployeesService {
 
         return employees;
     }
-
 
 }

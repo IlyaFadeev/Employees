@@ -26,7 +26,7 @@
                 <td>${listDepts.dname}</td>
                 <td>${listDepts.location}</td>
                 <td>${listDepts.manager}</td>
-                <td><a href="">Employees of dept.</a></td>
+                <td><a href="employeesfull?deptno=${listDepts.deptno}">Employees of dept.</a></td>
             </tr>
         </c:forEach>
     </table>

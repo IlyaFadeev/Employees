@@ -12,19 +12,19 @@ public class DEPARTMENTS {
     @Column(name = "DEPTNO")
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "SEQ_DEPT")
     @SequenceGenerator(name = "SEQ_DEPT", sequenceName = "SEQ_DEPT")
-    private int deptno;
+    private Integer deptno;
     @Column(name="DNAME")
     private String dname;
-    @Column(name="LOC")
-    private int location;
+    @Column(name="LNO")
+    private Integer location;
     @Column(name="MGR")
-    private int manager;
+    private Integer manager;
 
-    public int getDeptno() {
+    public Integer getDeptno() {
         return deptno;
     }
 
-    public void setDeptno(int deptno) {
+    public void setDeptno(Integer deptno) {
         this.deptno = deptno;
     }
 
@@ -36,19 +36,19 @@ public class DEPARTMENTS {
         this.dname = dname;
     }
 
-    public int getLocation() {
+    public Integer getLocation() {
         return location;
     }
 
-    public void setLocation(int location) {
+    public void setLocation(Integer location) {
         this.location = location;
     }
 
-    public int getManager() {
+    public Integer getManager() {
         return manager;
     }
 
-    public void setManager(int manager) {
+    public void setManager(Integer manager) {
         this.manager = manager;
     }
 }

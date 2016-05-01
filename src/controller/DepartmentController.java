@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * Created by Ilia Komarov on 25.04.2016.
  */
-@Controller
 public class DepartmentController {
     private DepartmentService departmentService;
 

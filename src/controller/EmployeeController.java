@@ -29,6 +29,7 @@ public class EmployeeController {
     private EmployeesService employeesService;
     private JobService jobService;
     private LocateService locateService;
+    private DepartmentService deptService;
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public String getPersons(Model model, @RequestParam(value="empno", required=true, defaultValue = "1450") Integer empno){
@@ -254,16 +255,21 @@ public class EmployeeController {
         return "filters";
     }
 
-
-    private DepartmentService departmentService;
-
-    @RequestMapping(name="/departments", method= RequestMethod.GET)
+    @RequestMapping(value="/departments", method= RequestMethod.GET)
     public String getDepartments(Model model)
     {
-        departmentService=new DepartmentService();
-        List<DEPARTMENTS> depts=departmentService.getAll();
+        deptService=new DepartmentService();
+        List<DEPARTMENTS> depts=deptService.getAll();
         model.addAttribute("depts", depts);
         return "departments";
     }
 
+    @RequestMapping(value="/employeesfull", method=RequestMethod.GET)
+    public String getEmpsByDept(Model model, @RequestParam(value="deptno", required=true, defaultValue = "null")Integer deptno)
+    {
+        deptService=new DepartmentService();
+        List<EMPLOYEES> emps=deptService.getEmpByDept(deptno);
+        model.addAttribute("emps",emps);
+        return "employeesfull";
+    }
 }

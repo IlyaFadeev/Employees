@@ -10,19 +10,19 @@ import java.sql.Date;
 @Table(name="TIMEOFF")
 public class TIMEOFF {
     @Column(name = "EMPNO")
-    private int empno;
+    private Integer empno;
     @Column(name="START__DATE")
     private Date startdate;
     @Column(name="END_DATE")
     private Date enddate;
     @Column(name="TYPENO")
-    private int type;
+    private Integer type;
 
-    public int getEmpno() {
+    public Integer getEmpno() {
         return empno;
     }
 
-    public void setEmpno(int empno) {
+    public void setEmpno(Integer empno) {
         this.empno = empno;
     }
 
@@ -42,11 +42,11 @@ public class TIMEOFF {
         this.enddate = enddate;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 }

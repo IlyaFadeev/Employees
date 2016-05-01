@@ -53,7 +53,7 @@ public class DepartmentService {
     public List<EMPLOYEES> getEmpByDept(int deptno)
     {
         Session session=getSession();
-        SQLQuery query=session.createSQLQuery("SELECT * FROM EMPLOYEES WHERE EMPLOYEES.DEPTNO=DEPARTMENTS.DEPTNO");
+        SQLQuery query=session.createSQLQuery("SELECT * FROM EMPLOYEES WHERE EMPLOYEES.DEPTNO="+deptno);
         query.addEntity(EMPLOYEES.class);
         return query.list();
     }
