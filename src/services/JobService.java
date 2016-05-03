@@ -47,4 +47,13 @@ public class JobService implements DirectoryService {
         session.saveOrUpdate(job);
         session.getTransaction().commit();
     }
+
+    public Directory get(String name)
+    {
+        Session session=getSession();
+        session.beginTransaction();
+        JOB loc= (JOB) session.get(JOB.class,name);
+        session.getTransaction().commit();
+        return loc;
+    }
 }

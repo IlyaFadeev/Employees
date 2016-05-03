@@ -5,15 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import pojo.DEPARTMENTS;
-import pojo.EMPLOYEES;
-import pojo.JOB;
-import pojo.LOCATE;
-import services.DepartmentService;
-import services.EmployeesService;
-import services.JobService;
-import services.LocateService;
+import pojo.*;
+import services.*;
 
+import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +25,7 @@ public class EmployeeController {
     private JobService jobService;
     private LocateService locateService;
     private DepartmentService deptService;
+    private TimeOffTypesService timeOffTypesService;
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public String getPersons(Model model, @RequestParam(value="empno", required=true, defaultValue = "1450") Integer empno){
@@ -166,14 +162,16 @@ public class EmployeeController {
         EMPLOYEES employee = employeesService.getEmp(empno);
         jobService = new JobService();
         locateService = new LocateService();
+        deptService=new DepartmentService();
         List<EMPLOYEES> employees = employeesService.getAll();
         List<JOB> jobs = jobService.getAll();
         List<LOCATE> locates = locateService.getAll();
+        List<DEPARTMENTS> depts=deptService.getAll();
         model.addAttribute("empls", employees);
         model.addAttribute("jobs", jobs);
         model.addAttribute("locates", locates);
         model.addAttribute("employee", employee);
-
+        model.addAttribute("depts", depts);
         return "update";
     }
 
@@ -260,16 +258,154 @@ public class EmployeeController {
     {
         deptService=new DepartmentService();
         List<DEPARTMENTS> depts=deptService.getAll();
+        logger.info(depts.toString());
         model.addAttribute("depts", depts);
         return "departments";
     }
 
     @RequestMapping(value="/employeesfull", method=RequestMethod.GET)
-    public String getEmpsByDept(Model model, @RequestParam(value="deptno", required=true, defaultValue = "null")Integer deptno)
+    public String getEmpsByDept(Model model, @RequestParam(value="deptno", required=true, defaultValue = "null")String deptno)
     {
         deptService=new DepartmentService();
-        List<EMPLOYEES> emps=deptService.getEmpByDept(deptno);
+        logger.info("Getting emps.."+deptno);
+        List<EMPLOYEES> emps=deptService.getEmpByDept(Integer.parseInt(deptno));
+        logger.info(emps.toString());
+        logger.info("Adding attributes");
+        if (emps.isEmpty()) throw new NoResultException("There is no employees!");
         model.addAttribute("emps",emps);
+        model.addAttribute("pagetitle","Employees of dept.");
         return "employeesfull";
     }
+
+    @RequestMapping(value = "/savedept", method = RequestMethod.GET)
+    public String saveDept(Model model, @RequestParam(name="deptno", required = false) String deptno, @RequestParam(name="dname", required = true, defaultValue = "") String dname, @RequestParam(name="location", required = true, defaultValue = "") String location, @RequestParam(name="mgr", required = true, defaultValue = "")String manager)
+    {
+        DepartmentService departmentService=new DepartmentService();
+        DEPARTMENTS dept;
+        if (deptno!=null && !deptno.equals("")) {
+            Integer dno=Integer.parseInt(deptno);
+            dept = departmentService.getDeptByNo(dno);
+        }
+        else {
+            dept=new DEPARTMENTS();
+            dept.setDeptno(null);
+        }
+        dept.setDname(dname);
+        dept.setLocation(location);
+        employeesService=new EmployeesService();
+        boolean[] filters = {true, true, false, false, false, false};
+        String[] parts=manager.split(" ");
+        EMPLOYEES emp=employeesService.search(filters, parts[0], parts[1], null,null, null, null).get(0);
+        dept.setManager(emp.getEmpNo());
+        departmentService.updateDept(dept);
+        List<DEPARTMENTS> depts=departmentService.getAll();
+        model.addAttribute("depts", depts);
+        return "redirect:departments";
+    }
+
+    @RequestMapping(value = "/updatedept", method = RequestMethod.GET)
+    public String updateDept(Model model, @RequestParam(value="deptno", required=true, defaultValue = "null") Integer deptno){
+        deptService = new DepartmentService();
+        employeesService=new EmployeesService();
+        locateService = new LocateService();
+        DEPARTMENTS dept = new DEPARTMENTS();
+        if (deptno!=null) dept=deptService.getDeptByNo(deptno);
+        List<LOCATE> locates = locateService.getAll();
+        List<EMPLOYEES> emps = employeesService.getAll();
+        model.addAttribute("emps", emps);
+        model.addAttribute("locations", locates);
+        model.addAttribute("dept", dept);
+        return "updatedept";
+    }
+
+    @RequestMapping(value = "/adddept", method = RequestMethod.GET)
+    public String addDept(Model model)
+    {
+        return updateDept(model, null);
+    }
+
+    @RequestMapping(value="/directories",method = RequestMethod.GET)
+    public String getAllDirectory(Model model)
+    {
+        jobService=new JobService();
+        locateService=new LocateService();
+        timeOffTypesService=new TimeOffTypesService();
+        List<JOB> jobs=jobService.getAll();
+        List<LOCATE> locates=locateService.getAll();
+        List<TIMEOFFTYPES> timeofftypes=timeOffTypesService.getAll();
+        model.addAttribute("jobs",jobs);
+        model.addAttribute("locates",locates);
+        model.addAttribute("timeofftypes",timeofftypes);
+        return "directories";
+    }
+
+    @RequestMapping(value="/updatedir", method = RequestMethod.GET)
+    public String updateDirectory(Model model, @RequestParam(name="type", required = true) String typeDir, @RequestParam(name="dir", required = false) String dir)
+    {
+        model.addAttribute("type",typeDir);
+        //model.addAttribute("dirname",dir);
+        if (typeDir.equals("job")) {
+            model.addAttribute("dirtitle","Job");
+            if (dir!=null) {
+                model.addAttribute("dirname", dir);
+            }
+            else model.addAttribute("dirname", "");
+        }
+        else if (typeDir.equals("loc")){
+            model.addAttribute("dirtitle","Location");
+            if (dir!=null) {
+                model.addAttribute("dirname", dir);
+            }
+            else model.addAttribute("dirname", "");
+        }
+        else if (typeDir.equals("timeoff")){
+            model.addAttribute("dirtitle","Time Off");
+            if (dir!=null) {
+                model.addAttribute("dirname", dir);
+            }
+            else model.addAttribute("dirname", "");
+        }
+        return "updatedir";
+    }
+
+    @RequestMapping(value = "/savedir", method = RequestMethod.GET)
+    public String saveDir(Model model, @RequestParam(name="type", required = true) String type,@RequestParam(name="dir", required = true) String dir)
+    {
+        if (type.equals("job")) {
+            jobService=new JobService();
+            JOB job=new JOB();
+            job.setJname(dir);
+            jobService.add(job);
+        }
+        else if (type.equals("loc")){
+            locateService=new LocateService();
+            LOCATE loc=new LOCATE();
+            loc.setLname(dir);
+            locateService.add(loc);
+        }
+        else if (type.equals("timeoff")){
+            timeOffTypesService= new TimeOffTypesService();
+            TIMEOFFTYPES timeofftypes=new TIMEOFFTYPES();
+            timeofftypes.setType(dir);
+            timeOffTypesService.add(timeofftypes);
+        }
+        return "redirect:"+getAllDirectory(model);
+    }
+
+    @RequestMapping(value = "/getallemps", method = RequestMethod.GET)
+    public String getAllEmployees(Model model)
+    {
+        employeesService=new EmployeesService();
+        List<EMPLOYEES> emps=employeesService.getAll();
+        model.addAttribute("emps",emps);
+        model.addAttribute("pagetitle", "Employees");
+        return "employeesfull";
+    }
+
+    @RequestMapping(value = "/mainPage", method = RequestMethod.GET)
+    public String mainPage(Model model)
+    {
+        return "mainPage";
+    }
+
 }

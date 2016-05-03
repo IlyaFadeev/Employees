@@ -51,4 +51,13 @@ public class LocateService implements DirectoryService{
         session.saveOrUpdate(locate);
         session.getTransaction().commit();
     }
+
+    public Directory get(String name)
+    {
+        Session session=getSession();
+        session.beginTransaction();
+        LOCATE loc= (LOCATE) session.get(LOCATE.class,name);
+        session.getTransaction().commit();
+        return loc;
+    }
 }

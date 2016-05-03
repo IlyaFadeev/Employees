@@ -57,9 +57,9 @@
   <br>
   <label>Dept no:</label>
   <select name="deptno">
-    <c:forEach var="listValue" items="${locates}">
-      <option <c:if test="${listValue.LNO.equals(employee.deptNo)}">selected</c:if>>
-          ${listValue.LNO}
+    <c:forEach var="listValue" items="${depts}">
+      <option <c:if test="${listValue.deptno.equals(employee.deptNo)}">selected</c:if>>
+          ${listValue.dname}
       </option>
     </c:forEach>
 

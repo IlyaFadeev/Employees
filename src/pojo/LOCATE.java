@@ -1,37 +1,22 @@
 package pojo;
 
-import org.hibernate.annotations.Table;
-
 import javax.persistence.*;
 
 /**
  * Created by Fadeev on 4/18/2016.
  */
 @Entity
-@javax.persistence.Table(name = "LOCATE")
+@Table(name="LOCATE")
 public class LOCATE implements Directory{
     @Id
-    @Column(name = "LNO")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "seq_loc")
-    @SequenceGenerator(name = "seq_loc", sequenceName = "seq_loc")
-    private Integer LNO;
     @Column(name = "LNAME")
-    private String LNAME;
+    private String lname;
 
-
-    public Integer getLNO() {
-        return LNO;
+    public String getLname() {
+        return lname;
     }
 
-    public void setLNO(Integer LNO) {
-        this.LNO = LNO;
-    }
-
-    public String getLNAME() {
-        return LNAME;
-    }
-
-    public void setLNAME(String LNAME) {
-        this.LNAME = LNAME;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 }

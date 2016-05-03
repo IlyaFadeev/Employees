@@ -15,8 +15,8 @@ public class DEPARTMENTS {
     private Integer deptno;
     @Column(name="DNAME")
     private String dname;
-    @Column(name="LNO")
-    private Integer location;
+    @Column(name="LOC")
+    private String location;
     @Column(name="MGR")
     private Integer manager;
 
@@ -36,11 +36,11 @@ public class DEPARTMENTS {
         this.dname = dname;
     }
 
-    public Integer getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(Integer location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 

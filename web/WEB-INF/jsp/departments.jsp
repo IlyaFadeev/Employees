@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ page import="pojo.DEPARTMENTS" %>
 <%@ page import="java.util.List" %>
+<%@ page import="services.EmployeesService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -27,8 +28,12 @@
                 <td>${listDepts.location}</td>
                 <td>${listDepts.manager}</td>
                 <td><a href="employeesfull?deptno=${listDepts.deptno}">Employees of dept.</a></td>
+                <td><a href="updatedept?deptno=${listDepts.deptno}">Update</a></td>
             </tr>
         </c:forEach>
     </table>
+    <form action="adddept">
+        <input type="submit" value="Add dept.">
+    </form>
 </body>
 </html>

@@ -1,11 +1,9 @@
 package services;
 
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import pojo.DEPARTMENTS;
 import pojo.EMPLOYEES;
 
@@ -31,6 +29,8 @@ public class DepartmentService {
     }
 
     public Session getSession() {
+        if (session!=null) session.close();
+        session=factory.openSession();
         return session;
     }
 
@@ -41,7 +41,7 @@ public class DepartmentService {
         return query.list();
     }
 
-    public DEPARTMENTS getDeptByNo(int deptno)
+    public DEPARTMENTS getDeptByNo(Integer deptno)
     {
         Session session=getSession();
         session.beginTransaction();
@@ -50,25 +50,21 @@ public class DepartmentService {
         return dept;
     }
 
-    public List<EMPLOYEES> getEmpByDept(int deptno)
+    public List<EMPLOYEES> getEmpByDept(Integer deptno)
     {
-        Session session=getSession();
-        SQLQuery query=session.createSQLQuery("SELECT * FROM EMPLOYEES WHERE EMPLOYEES.DEPTNO="+deptno);
-        query.addEntity(EMPLOYEES.class);
-        return query.list();
-    }
-
-    public void addDept(DEPARTMENTS departments){
-        Session session = getSession();
+        Session session=new EmployeesService().getSession();
         session.beginTransaction();
-        session.saveOrUpdate(departments);
+        Criteria crit=session.createCriteria(EMPLOYEES.class);
+        crit.add(Restrictions.eq("deptNo",deptno));
+        List<EMPLOYEES> res=crit.list();
         session.getTransaction().commit();
+        return res;
     }
 
     public void updateDept(DEPARTMENTS department){
         Session session = getSession();
         session.beginTransaction();
-        session.update(department);
+        session.saveOrUpdate(department);
         session.getTransaction().commit();
     }
 

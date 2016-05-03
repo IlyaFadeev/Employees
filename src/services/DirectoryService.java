@@ -10,4 +10,5 @@ import java.util.List;
 public interface DirectoryService {
     public List getAll();
     public void add(Directory directory);
+    public Directory get(String name);
 }

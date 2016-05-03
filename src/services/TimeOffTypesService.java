@@ -34,7 +34,7 @@ public class TimeOffTypesService implements DirectoryService{
         return session;
     }
 
-    public List<LOCATE> getAll(){
+    public List<TIMEOFFTYPES> getAll(){
         Session session = getSession();
         String tableName = "TIMEOFFTYPES";
         Query query = session.createQuery("FROM " + tableName);
@@ -47,5 +47,14 @@ public class TimeOffTypesService implements DirectoryService{
         session.beginTransaction();
         session.saveOrUpdate(type);
         session.getTransaction().commit();
+    }
+
+    public Directory get(String name)
+    {
+        Session session=getSession();
+        session.beginTransaction();
+        TIMEOFFTYPES loc= (TIMEOFFTYPES) session.get(TIMEOFFTYPES.class,name);
+        session.getTransaction().commit();
+        return loc;
     }
 }

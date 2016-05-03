@@ -9,20 +9,8 @@ import javax.persistence.*;
 @Table(name = "JOB")
 public class JOB implements Directory{
     @Id
-    @Column(name = "JNO")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "seq_job")
-    @SequenceGenerator(name = "seq_job", sequenceName = "seq_job")
-    private Integer jno;
     @Column(name = "JNAME")
     private String jname;
-
-    public Integer getJno() {
-        return jno;
-    }
-
-    public void setJno(Integer jno) {
-        this.jno = jno;
-    }
 
     public String getJname() {
         return jname;
