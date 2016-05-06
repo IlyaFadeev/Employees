@@ -15,13 +15,16 @@
     <style type="text/css">
         <%@ include file="styles.css" %>
     </style>
-</head>
-<body>
 
+    <h1>
+        <a href="mainPage">Main page</a>
+    </h1>
+</head>
 
 <h1>
     Employee:
 </h1>
+<div class="tablestyle">
 <table class="tablestyle">
     <tr>
         <td>
@@ -77,12 +80,13 @@
         </tr>
 
 </table>
-
+</div>
 
 
 <h1>
     Managers:
 </h1>
+<div class="tablestyle">
 <table class="tablestyle">
     <tr>
         <td>
@@ -140,11 +144,13 @@
 </c:forEach>
 
 </table>
+    </div>
 
 <h1>
     Sub employees:
 </h1>
 
+<div class="tablestyle">
 <table class="tablestyle">
 
     <tr>
@@ -203,7 +209,7 @@
     </c:forEach>
 
 </table>
-
+</div>
 <br>
 <br>
 <br>

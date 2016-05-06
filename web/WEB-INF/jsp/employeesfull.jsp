@@ -14,6 +14,9 @@
     <style type="text/css">
         <%@ include file="styles.css" %>
     </style>
+    <h1>
+        <a href="mainPage">Main page</a>
+    </h1>
 </head>
 <body>
 <h1>${pagetitle}</h1>
