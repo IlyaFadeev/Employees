@@ -10,6 +10,9 @@
 <html>
 <head>
     <title>Directories</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
 </head>
 <body>
     <h1>Jobs:</h1>

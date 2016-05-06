@@ -8,7 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Save</title>
+  <style type="text/css">
+    <%@ include file="styles.css" %>
+  </style>
 </head>
 <body>
 

@@ -8,7 +8,13 @@
 <%@ page isErrorPage="true" import="java.io.*" contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<title>Error</title>
+<head>
+  <title>Error</title>
+  <style type="text/css">
+    <%@ include file="styles.css" %>
+  </style>
+</head>
+
 <body>
 <h1>Something goes wrong!..</h1>
 <br><%=exception.getMessage()%>

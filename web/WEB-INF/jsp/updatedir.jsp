@@ -9,6 +9,9 @@
 <html>
 <head>
     <title>${dirtitle}</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
 </head>
 <body>
 <form action="savedir">

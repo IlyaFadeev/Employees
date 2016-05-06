@@ -9,6 +9,9 @@
 <html>
 <head>
     <title>Management</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
 </head>
 <body>
     <h1>Menu</h1>

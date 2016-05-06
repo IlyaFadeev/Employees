@@ -12,6 +12,9 @@
 <html>
 <head>
     <title>Departments</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
 </head>
 <body>
     <h1>Departments</h1>

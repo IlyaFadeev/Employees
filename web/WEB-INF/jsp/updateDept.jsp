@@ -10,6 +10,9 @@
 <html>
 <head>
     <title>Update</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
 </head>
 <body>
 <form action="savedept">

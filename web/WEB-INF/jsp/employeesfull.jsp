@@ -11,11 +11,14 @@
 <head>
     <link rel="stylesheet" href="styles.css" type="text/css"/>
     <title>Employees</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
 </head>
 <body>
 <h1>${pagetitle}</h1>
 <div class="tablestyle">
-<table>
+<table class="tablestyle">
     <tr class="title">
         <td>
             Name

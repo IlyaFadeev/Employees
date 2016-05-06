@@ -11,7 +11,10 @@
 
 <html>
 <head>
-    <title></title>
+    <title>Employee info</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
 </head>
 <body>
 
@@ -19,7 +22,7 @@
 <h1>
     Employee:
 </h1>
-<table border="solid" bgcolor="#fffafa"  cellpadding="7">
+<table class="tablestyle">
     <tr>
         <td>
             Name
@@ -80,7 +83,7 @@
 <h1>
     Managers:
 </h1>
-<table border="solid" bgcolor="#fffafa"  cellpadding="7">
+<table class="tablestyle">
     <tr>
         <td>
             Name
@@ -142,7 +145,7 @@
     Sub employees:
 </h1>
 
-<table border="solid" bgcolor="#fffafa"  cellpadding="7">
+<table class="tablestyle">
 
     <tr>
         <td>
