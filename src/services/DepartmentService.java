@@ -4,6 +4,8 @@ import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import pojo.DEPARTMENTS;
 import pojo.EMPLOYEES;
 
@@ -14,16 +16,19 @@ import java.util.Locale;
  * Created by Ilia Komarov on 25.04.2016.
  */
 public class DepartmentService {
-    AnnotationConfiguration aconf;
-    Configuration conf;
+    Configuration configuration;
     private SessionFactory factory;
-
     private Session session;
+    private ServiceRegistryBuilder serviceRegistryBuilder;
+    private ServiceRegistry serviceRegistry;
 
     public DepartmentService(){
-        this.aconf = new AnnotationConfiguration().addAnnotatedClass(DEPARTMENTS.class);
-        this.conf = aconf.configure();
-        this.factory = conf.buildSessionFactory();
+        this.configuration = new Configuration().addAnnotatedClass(DEPARTMENTS.class);
+        configuration.configure();
+        serviceRegistryBuilder = new ServiceRegistryBuilder();
+        serviceRegistryBuilder.applySettings(configuration.getProperties());
+        this.serviceRegistry = serviceRegistryBuilder.buildServiceRegistry();
+        this.factory = configuration.buildSessionFactory(serviceRegistry);
         this.session = factory.openSession();
         Locale.setDefault(Locale.US);
     }

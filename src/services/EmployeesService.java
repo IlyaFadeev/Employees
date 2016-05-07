@@ -4,6 +4,9 @@ import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+import org.hibernate.service.internal.StandardServiceRegistryImpl;
 import org.springframework.ui.Model;
 import pojo.DEPARTMENTS;
 import pojo.EMPLOYEES;
@@ -17,16 +20,19 @@ import java.util.Locale;
  */
 public class EmployeesService {
 
-    AnnotationConfiguration aconf;
-    Configuration conf;
+    Configuration configuration;
     private SessionFactory factory;
-
     private Session session;
+    private ServiceRegistryBuilder serviceRegistryBuilder;
+    private ServiceRegistry serviceRegistry;
 
     public EmployeesService(){
-        this.aconf = new AnnotationConfiguration().addAnnotatedClass(EMPLOYEES.class);
-        this.conf = aconf.configure();
-        this.factory = conf.buildSessionFactory();
+        this.configuration = new Configuration().addAnnotatedClass(EMPLOYEES.class);
+        configuration.configure();
+        serviceRegistryBuilder = new ServiceRegistryBuilder();
+        serviceRegistryBuilder.applySettings(configuration.getProperties());
+        this.serviceRegistry = serviceRegistryBuilder.buildServiceRegistry();
+        this.factory = configuration.buildSessionFactory(serviceRegistry);
         this.session = factory.openSession();
         Locale.setDefault(Locale.US);
     }
