@@ -25,7 +25,7 @@ public class TimeOffService {
     private ServiceRegistryBuilder serviceRegistryBuilder;
     private ServiceRegistry serviceRegistry;
 
-    public TimeOffService(){
+    public TimeOffService() {
         this.configuration = new Configuration().addAnnotatedClass(TIMEOFF.class);
         configuration.configure();
         serviceRegistryBuilder = new ServiceRegistryBuilder();
@@ -40,29 +40,28 @@ public class TimeOffService {
         return session;
     }
 
-    public List<TIMEOFF> getAll(){
+    public List<TIMEOFF> getAll() {
         Session session = getSession();
         String tableName = "TIMEOFF";
         Query query = session.createQuery("FROM " + tableName);
         return query.list();
     }
 
-    public void addTimeOff(TIMEOFF timeoff)
-    {
-        Session session=getSession();
+    public void addTimeOff(TIMEOFF timeoff) {
+        Session session = getSession();
         session.beginTransaction();
         session.saveOrUpdate(timeoff);
         session.getTransaction().commit();
     }
 
-    public void updateTimeOff(TIMEOFF timeoff){
+    public void updateTimeOff(TIMEOFF timeoff) {
         Session session = getSession();
         session.beginTransaction();
         session.update(timeoff);
         session.getTransaction().commit();
     }
 
-    public void removeTimeOff(TIMEOFF timeoff){
+    public void removeTimeOff(TIMEOFF timeoff) {
         Session session = getSession();
         session.beginTransaction();
         session.delete(timeoff);

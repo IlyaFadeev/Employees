@@ -22,7 +22,7 @@ public class DepartmentService {
     private ServiceRegistryBuilder serviceRegistryBuilder;
     private ServiceRegistry serviceRegistry;
 
-    public DepartmentService(){
+    public DepartmentService() {
         this.configuration = new Configuration().addAnnotatedClass(DEPARTMENTS.class);
         configuration.configure();
         serviceRegistryBuilder = new ServiceRegistryBuilder();
@@ -34,46 +34,44 @@ public class DepartmentService {
     }
 
     public Session getSession() {
-        if (session!=null) session.close();
-        session=factory.openSession();
+        if (session != null) session.close();
+        session = factory.openSession();
         return session;
     }
 
-    public List<DEPARTMENTS> getAll(){
+    public List<DEPARTMENTS> getAll() {
         Session session = getSession();
         String tableName = "DEPARTMENTS";
         Query query = session.createQuery("FROM " + tableName);
         return query.list();
     }
 
-    public DEPARTMENTS getDeptByNo(Integer deptno)
-    {
-        Session session=getSession();
+    public DEPARTMENTS getDeptByNo(Integer deptno) {
+        Session session = getSession();
         session.beginTransaction();
-        DEPARTMENTS dept= (DEPARTMENTS) session.get(DEPARTMENTS.class, deptno);
+        DEPARTMENTS dept = (DEPARTMENTS) session.get(DEPARTMENTS.class, deptno);
         session.getTransaction().commit();
         return dept;
     }
 
-    public List<EMPLOYEES> getEmpByDept(Integer deptno)
-    {
-        Session session=new EmployeesService().getSession();
+    public List<EMPLOYEES> getEmpByDept(Integer deptno) {
+        Session session = new EmployeesService().getSession();
         session.beginTransaction();
-        Criteria crit=session.createCriteria(EMPLOYEES.class);
-        crit.add(Restrictions.eq("deptNo",deptno));
-        List<EMPLOYEES> res=crit.list();
+        Criteria crit = session.createCriteria(EMPLOYEES.class);
+        crit.add(Restrictions.eq("deptNo", deptno));
+        List<EMPLOYEES> res = crit.list();
         session.getTransaction().commit();
         return res;
     }
 
-    public void updateDept(DEPARTMENTS department){
+    public void updateDept(DEPARTMENTS department) {
         Session session = getSession();
         session.beginTransaction();
         session.saveOrUpdate(department);
         session.getTransaction().commit();
     }
 
-    public void removeDept(DEPARTMENTS department){
+    public void removeDept(DEPARTMENTS department) {
         Session session = getSession();
         session.beginTransaction();
         session.delete(department);

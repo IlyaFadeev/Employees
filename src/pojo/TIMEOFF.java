@@ -7,15 +7,15 @@ import java.sql.Date;
  * Created by Ilia Komarov on 25.04.2016.
  */
 @Entity
-@Table(name="TIMEOFF")
+@Table(name = "TIMEOFF")
 public class TIMEOFF {
     @Column(name = "EMPNO")
     private Integer empno;
-    @Column(name="START__DATE")
+    @Column(name = "START__DATE")
     private Date startdate;
-    @Column(name="END_DATE")
+    @Column(name = "END_DATE")
     private Date enddate;
-    @Column(name="TYPENO")
+    @Column(name = "TYPENO")
     private Integer type;
 
     public Integer getEmpno() {

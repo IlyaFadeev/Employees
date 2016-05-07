@@ -65,9 +65,9 @@
   <br>
   <label>Dept no:</label>
   <select name="deptno">
-    <c:forEach var="listValue" items="${locates}">
+    <c:forEach var="listValue" items="${dept}">
       <option>
-          ${listValue.LNO}
+          ${listValue.deptno}
       </option>
     </c:forEach>
 

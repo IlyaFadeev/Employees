@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "JOB")
-public class JOB implements Directory{
+public class JOB implements Directory {
     @Id
     @Column(name = "JNAME")
     private String jname;

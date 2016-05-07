@@ -65,7 +65,7 @@
   <select name="deptno">
     <c:forEach var="listValue" items="${depts}">
       <option <c:if test="${listValue.deptno.equals(employee.deptNo)}">selected</c:if>>
-          ${listValue.dname}
+          ${listValue.deptno}
       </option>
     </c:forEach>
 

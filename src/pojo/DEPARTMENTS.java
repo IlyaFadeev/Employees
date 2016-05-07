@@ -6,18 +6,18 @@ import javax.persistence.*;
  * Created by Ilia Komarov on 25.04.2016.
  */
 @Entity
-@Table(name="DEPARTMENTS")
+@Table(name = "DEPARTMENTS")
 public class DEPARTMENTS {
     @Id
     @Column(name = "DEPTNO")
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "SEQ_DEPT")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DEPT")
     @SequenceGenerator(name = "SEQ_DEPT", sequenceName = "SEQ_DEPT")
     private Integer deptno;
-    @Column(name="DNAME")
+    @Column(name = "DNAME")
     private String dname;
-    @Column(name="LOC")
+    @Column(name = "LOC")
     private String location;
-    @Column(name="MGR")
+    @Column(name = "MGR")
     private Integer manager;
 
     public Integer getDeptno() {

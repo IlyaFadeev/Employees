@@ -19,14 +19,14 @@ import java.util.Locale;
 /**
  * Created by Fadeev on 4/18/2016.
  */
-public class LocateService implements DirectoryService{
+public class LocateService implements DirectoryService {
     Configuration configuration;
     private SessionFactory factory;
     private Session session;
     private ServiceRegistryBuilder serviceRegistryBuilder;
     private ServiceRegistry serviceRegistry;
 
-    public LocateService(){
+    public LocateService() {
         this.configuration = new Configuration().addAnnotatedClass(LOCATE.class);
         configuration.configure();
         serviceRegistryBuilder = new ServiceRegistryBuilder();
@@ -42,7 +42,7 @@ public class LocateService implements DirectoryService{
     }
 
 
-    public List<LOCATE> getAll(){
+    public List<LOCATE> getAll() {
         Session session = getSession();
         String tableName = "LOCATE";
 
@@ -51,19 +51,17 @@ public class LocateService implements DirectoryService{
         return query.list();
     }
 
-    public void add(Directory locate)
-    {
-        Session session=getSession();
+    public void add(Directory locate) {
+        Session session = getSession();
         session.beginTransaction();
         session.saveOrUpdate(locate);
         session.getTransaction().commit();
     }
 
-    public Directory get(String name)
-    {
-        Session session=getSession();
+    public Directory get(String name) {
+        Session session = getSession();
         session.beginTransaction();
-        LOCATE loc= (LOCATE) session.get(LOCATE.class,name);
+        LOCATE loc = (LOCATE) session.get(LOCATE.class, name);
         session.getTransaction().commit();
         return loc;
     }

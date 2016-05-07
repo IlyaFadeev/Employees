@@ -18,14 +18,14 @@ import java.util.Locale;
 /**
  * Created by Ilia Komarov on 25.04.2016.
  */
-public class TimeOffTypesService implements DirectoryService{
+public class TimeOffTypesService implements DirectoryService {
     Configuration configuration;
     private SessionFactory factory;
     private Session session;
     private ServiceRegistryBuilder serviceRegistryBuilder;
     private ServiceRegistry serviceRegistry;
 
-    public TimeOffTypesService(){
+    public TimeOffTypesService() {
         this.configuration = new Configuration().addAnnotatedClass(TIMEOFFTYPES.class);
         configuration.configure();
         serviceRegistryBuilder = new ServiceRegistryBuilder();
@@ -40,26 +40,24 @@ public class TimeOffTypesService implements DirectoryService{
         return session;
     }
 
-    public List<TIMEOFFTYPES> getAll(){
+    public List<TIMEOFFTYPES> getAll() {
         Session session = getSession();
         String tableName = "TIMEOFFTYPES";
         Query query = session.createQuery("FROM " + tableName);
         return query.list();
     }
 
-    public void add(Directory type)
-    {
-        Session session=getSession();
+    public void add(Directory type) {
+        Session session = getSession();
         session.beginTransaction();
         session.saveOrUpdate(type);
         session.getTransaction().commit();
     }
 
-    public Directory get(String name)
-    {
-        Session session=getSession();
+    public Directory get(String name) {
+        Session session = getSession();
         session.beginTransaction();
-        TIMEOFFTYPES loc= (TIMEOFFTYPES) session.get(TIMEOFFTYPES.class,name);
+        TIMEOFFTYPES loc = (TIMEOFFTYPES) session.get(TIMEOFFTYPES.class, name);
         session.getTransaction().commit();
         return loc;
     }

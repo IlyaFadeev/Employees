@@ -24,7 +24,7 @@ public class JobService implements DirectoryService {
     private ServiceRegistryBuilder serviceRegistryBuilder;
     private ServiceRegistry serviceRegistry;
 
-    public JobService(){
+    public JobService() {
         this.configuration = new Configuration().addAnnotatedClass(JOB.class);
         configuration.configure();
         serviceRegistryBuilder = new ServiceRegistryBuilder();
@@ -39,25 +39,23 @@ public class JobService implements DirectoryService {
         return session;
     }
 
-    public List<JOB> getAll(){
+    public List<JOB> getAll() {
         Session session = getSession();
         Query query = session.createQuery("FROM JOB");
         return query.list();
     }
 
-    public void add(Directory job)
-    {
-        Session session=getSession();
+    public void add(Directory job) {
+        Session session = getSession();
         session.beginTransaction();
         session.saveOrUpdate(job);
         session.getTransaction().commit();
     }
 
-    public Directory get(String name)
-    {
-        Session session=getSession();
+    public Directory get(String name) {
+        Session session = getSession();
         session.beginTransaction();
-        JOB loc= (JOB) session.get(JOB.class,name);
+        JOB loc = (JOB) session.get(JOB.class, name);
         session.getTransaction().commit();
         return loc;
     }
