@@ -27,12 +27,15 @@ public class EmployeeController {
     private DepartmentService deptService;
     private TimeOffTypesService timeOffTypesService;
 
+    private final static String DEFAULT_EMP_NO = "-1";
+
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
-    public String getPersons(Model model, @RequestParam(value = "empno", required = true, defaultValue = "-1") Integer empno) {
+    public String getPersons(Model model, @RequestParam(value = "empno", required = true, defaultValue = DEFAULT_EMP_NO) Integer empno) {
         logger.info("Creating employee service...");
         employeesService = new EmployeesService();
         logger.info("Employee service created.");
         logger.info("Getting all employees...");
+
 
         if (empno == -1) empno = employeesService.getAll().get(0).getEmpNo();
 

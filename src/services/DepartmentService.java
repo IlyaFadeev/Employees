@@ -15,29 +15,13 @@ import java.util.Locale;
 /**
  * Created by Ilia Komarov on 25.04.2016.
  */
-public class DepartmentService {
-    Configuration configuration;
-    private SessionFactory factory;
-    private Session session;
-    private ServiceRegistryBuilder serviceRegistryBuilder;
-    private ServiceRegistry serviceRegistry;
+public class DepartmentService extends SessionService {
+
 
     public DepartmentService() {
-        this.configuration = new Configuration().addAnnotatedClass(DEPARTMENTS.class);
-        configuration.configure();
-        serviceRegistryBuilder = new ServiceRegistryBuilder();
-        serviceRegistryBuilder.applySettings(configuration.getProperties());
-        this.serviceRegistry = serviceRegistryBuilder.buildServiceRegistry();
-        this.factory = configuration.buildSessionFactory(serviceRegistry);
-        this.session = factory.openSession();
-        Locale.setDefault(Locale.US);
+        super(DEPARTMENTS.class);
     }
 
-    public Session getSession() {
-        if (session != null) session.close();
-        session = factory.openSession();
-        return session;
-    }
 
     public List<DEPARTMENTS> getAll() {
         Session session = getSession();

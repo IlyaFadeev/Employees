@@ -18,27 +18,12 @@ import java.util.Locale;
 /**
  * Created by Ilia Komarov on 25.04.2016.
  */
-public class TimeOffService {
-    Configuration configuration;
-    private SessionFactory factory;
-    private Session session;
-    private ServiceRegistryBuilder serviceRegistryBuilder;
-    private ServiceRegistry serviceRegistry;
+public class TimeOffService extends SessionService {
 
     public TimeOffService() {
-        this.configuration = new Configuration().addAnnotatedClass(TIMEOFF.class);
-        configuration.configure();
-        serviceRegistryBuilder = new ServiceRegistryBuilder();
-        serviceRegistryBuilder.applySettings(configuration.getProperties());
-        this.serviceRegistry = serviceRegistryBuilder.buildServiceRegistry();
-        this.factory = configuration.buildSessionFactory(serviceRegistry);
-        this.session = factory.openSession();
-        Locale.setDefault(Locale.US);
+       super(TIMEOFF.class);
     }
 
-    public Session getSession() {
-        return session;
-    }
 
     public List<TIMEOFF> getAll() {
         Session session = getSession();
