@@ -6,7 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ page import="pojo.EMPLOYEES" %>
-<%@ page import="java.util.List" %>
+<%@ page import="services.TimeOffService" %>
+<%@ page import="pojo.TIMEOFF" %>
+<%@ page import="org.joda.time.DateTime" %>
+<%@ page import="org.joda.time.Period" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
@@ -46,6 +49,9 @@
             Salary
         </td>
         <td>
+            Time off
+        </td>
+        <td>
 
         </td>
         <td>
@@ -70,6 +76,11 @@
             </td>
             <td>
                     ${employee.sal}
+            </td>
+            <td>
+
+                ${timeoff}
+
             </td>
             <td>
                 <a href="remove?empno=${employee.empNo}">remove</a>

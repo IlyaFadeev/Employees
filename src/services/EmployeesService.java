@@ -1,19 +1,15 @@
 package services;
 
 import org.hibernate.*;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
-import org.hibernate.service.internal.StandardServiceRegistryImpl;
-import org.springframework.ui.Model;
-import pojo.DEPARTMENTS;
+import org.hibernate.type.IntegerType;
 import pojo.EMPLOYEES;
+import pojo.TIMEOFF;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Fadeev on 4/17/2016.
@@ -28,9 +24,11 @@ public class EmployeesService extends SessionService {
     public List<EMPLOYEES> getAll() {
         Session session = getSession();
         String tableName = "EMPLOYEES";
-        Query query = session.createQuery("FROM " + tableName);
-
-        return query.list();
+        SQLQuery query = session.createSQLQuery("SELECT * FROM EMPLOYEES ORDER BY EMPNO");
+        query.addEntity(EMPLOYEES.class);
+        List<EMPLOYEES> employees = query.list();
+        close();
+        return employees;
     }
 
     public EMPLOYEES getEmp(Integer id) {
@@ -39,9 +37,26 @@ public class EmployeesService extends SessionService {
         session.beginTransaction();
         EMPLOYEES employee = (EMPLOYEES) session.get(EMPLOYEES.class, id);
         session.getTransaction().commit();
-
+        close();
         return employee;
     }
+
+    public void addEmp(EMPLOYEES employee, TIMEOFF timeoff) {
+        Session session = getSession();
+
+        session.beginTransaction();
+        session.saveOrUpdate(employee);
+        //Integer result = session.createSQLQuery("SELECT EMPNO FROM EMPLOYEES WHERE EMPNO = (SELECT MAX(EMPNO) FROM EMPLOYEES)").executeUpdate();
+        Query sqlQuery = session.createSQLQuery("INSERT INTO TIMEOFF (EMPNO, START_DATE, END_DATE, TYPENO) VALUES ((SELECT MAX(EMPNO) FROM EMPLOYEES), :start, :end, :type)");
+        sqlQuery.setParameter("start", timeoff.getStartdate());
+        sqlQuery.setParameter("end", timeoff.getEnddate());
+        sqlQuery.setParameter("type", timeoff.getType());
+        sqlQuery.executeUpdate();
+        session.getTransaction().commit();
+        close();
+
+    }
+
 
     public void addEmp(EMPLOYEES employee) {
         Session session = getSession();
@@ -49,6 +64,7 @@ public class EmployeesService extends SessionService {
         session.beginTransaction();
         session.saveOrUpdate(employee);
         session.getTransaction().commit();
+        close();
 
     }
 
@@ -58,6 +74,7 @@ public class EmployeesService extends SessionService {
         session.beginTransaction();
         session.update(employee);
         session.getTransaction().commit();
+        close();
     }
 
     public void removeEmp(EMPLOYEES employee) {
@@ -66,6 +83,7 @@ public class EmployeesService extends SessionService {
         session.beginTransaction();
         session.delete(employee);
         session.getTransaction().commit();
+        close();
     }
 
 
@@ -80,7 +98,9 @@ public class EmployeesService extends SessionService {
 
         query.addEntity(EMPLOYEES.class);
 
-        return query.list();
+        List<EMPLOYEES> employees = query.list();
+        close();
+        return employees;
     }
 
     public List<EMPLOYEES> getAllSubEmpForEmp(Integer empno) {
@@ -92,7 +112,10 @@ public class EmployeesService extends SessionService {
                 "CONNECT BY  PRIOR EMPNO = MGR");
 
         query.addEntity(EMPLOYEES.class);
-        return query.list();
+
+        List<EMPLOYEES> employees = query.list();
+        close();
+        return employees;
     }
 
 
@@ -127,6 +150,7 @@ public class EmployeesService extends SessionService {
         employees = criteria.list();
         session.getTransaction().commit();
 
+        close();
         return employees;
     }
 

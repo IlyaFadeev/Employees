@@ -9,14 +9,17 @@ import java.sql.Date;
 @Entity
 @Table(name = "TIMEOFF")
 public class TIMEOFF {
+    @Id
     @Column(name = "EMPNO")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer empno;
-    @Column(name = "START__DATE")
+    @Column(name = "START_DATE")
     private Date startdate;
     @Column(name = "END_DATE")
     private Date enddate;
     @Column(name = "TYPENO")
     private Integer type;
+
 
     public Integer getEmpno() {
         return empno;

@@ -31,7 +31,6 @@ public class SessionService implements Service {
     }
 
     public Session getSession() {
-        if (session != null) close();
         session = factory.openSession();
         return session;
     }

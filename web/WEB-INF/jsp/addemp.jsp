@@ -75,6 +75,25 @@
   <br>
   <br>
   <br>
+  <label>Start date:</label>
+  <input type="date" name="start">
+  <br>
+  <br>
+  <label>End date:</label>
+  <input type="date" name="end">
+  <br>
+  <br>
+  <label>Type:</label>
+  <select name="type">
+    <c:forEach var="listValue" items="${types}">
+      <option>
+          ${listValue.type}
+      </option>
+    </c:forEach>
+
+  </select>
+  <br>
+  <br>
   <input type="submit" value="save">
 </form>
 

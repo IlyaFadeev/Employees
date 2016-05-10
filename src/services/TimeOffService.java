@@ -1,19 +1,12 @@
 package services;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
-import pojo.EMPLOYEES;
-import pojo.LOCATE;
+
+import org.hibernate.*;
+
+import org.omg.IOP.TAG_ALTERNATE_IIOP_ADDRESS;
 import pojo.TIMEOFF;
-import pojo.TIMEOFFTYPES;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Ilia Komarov on 25.04.2016.
@@ -29,7 +22,9 @@ public class TimeOffService extends SessionService {
         Session session = getSession();
         String tableName = "TIMEOFF";
         Query query = session.createQuery("FROM " + tableName);
-        return query.list();
+        List<TIMEOFF> timeoffs = query.list();
+        close();
+        return timeoffs;
     }
 
     public void addTimeOff(TIMEOFF timeoff) {
@@ -51,5 +46,17 @@ public class TimeOffService extends SessionService {
         session.beginTransaction();
         session.delete(timeoff);
         session.getTransaction().commit();
+    }
+
+    public TIMEOFF get(Integer empNo){
+        Session session = getSession();
+
+        session.beginTransaction();
+        SQLQuery sqlQuery = session.createSQLQuery("SELECT EMPNO, START_DATE, END_DATE, TYPENO FROM TIMEOFF WHERE EMPNO = " + empNo);
+        sqlQuery.addEntity(TIMEOFF.class);
+        TIMEOFF timeoff = (TIMEOFF)sqlQuery.list().get(0);
+        session.getTransaction().commit();
+
+        return timeoff;
     }
 }

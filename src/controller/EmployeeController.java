@@ -1,5 +1,8 @@
 package controller;
 
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.Period;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pojo.*;
 import services.*;
-
 import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,16 +29,21 @@ public class EmployeeController {
     private LocateService locateService;
     private DepartmentService deptService;
     private TimeOffTypesService timeOffTypesService;
+    private TimeOffService timeOffService;
 
     private final static String DEFAULT_EMP_NO = "-1";
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public String getPersons(Model model, @RequestParam(value = "empno", required = true, defaultValue = DEFAULT_EMP_NO) Integer empno) {
+        logger.info("Creating time off service...");
+        timeOffService = new TimeOffService();
         logger.info("Creating employee service...");
         employeesService = new EmployeesService();
         logger.info("Employee service created.");
+
         logger.info("Getting all employees...");
 
+        HashMap<EMPLOYEES, Long> employeestimeoffHashMap = new HashMap<EMPLOYEES, Long>();
 
         if (empno == -1) empno = employeesService.getAll().get(0).getEmpNo();
 
@@ -48,11 +56,25 @@ public class EmployeeController {
         logger.info("Getting all sub employees for current employee...");
         List<EMPLOYEES> subEmployees = employeesService.getAllSubEmpForEmp(empno);
 
+        logger.info("Getting all times off for employees...");
+        List<TIMEOFF> timeoffs = timeOffService.getAll();
+
+        List<EMPLOYEES> employees = employeesService.getAll();
+
+        long hours = 0;
+
+        DateTime start = new DateTime(timeOffService.get(employee.getEmpNo()).getStartdate().getTime());
+        DateTime end = new DateTime(timeOffService.get(employee.getEmpNo()).getEnddate().getTime());
+
+
+        hours = Hours.hoursBetween(start, end).getHours();
+
 
         logger.info("Adding attributes...");
         model.addAttribute("employee", employee);
         model.addAttribute("mgrs", mgrs);
         model.addAttribute("subEmp", subEmployees);
+        model.addAttribute("timeoff", hours);
 
         return "employees";
     }
@@ -64,6 +86,8 @@ public class EmployeeController {
         jobService = new JobService();
         locateService = new LocateService();
         deptService = new DepartmentService();
+        timeOffTypesService = new TimeOffTypesService();
+        List<TIMEOFFTYPES> timeofftypes = timeOffTypesService.getAll();
         List<EMPLOYEES> employees = employeesService.getAll();
         List<JOB> jobs = jobService.getAll();
         List<LOCATE> locates = locateService.getAll();
@@ -71,14 +95,16 @@ public class EmployeeController {
         model.addAttribute("empls", employees);
         model.addAttribute("jobs", jobs);
         model.addAttribute("dept", departmentses);
+        model.addAttribute("types", timeofftypes);
         return "addemp";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public String saveEmp(Model model, @RequestParam(value = "empno", required = false, defaultValue = "null") Integer empno, @RequestParam(value = "first_name", required = true) String fName, @RequestParam(value = "last_name", required = true) String sName, @RequestParam(value = "job", required = true) String job, @RequestParam(value = "mgr", required = true) String mgr, @RequestParam(value = "hiredate", required = true) String hDate, @RequestParam(value = "salary", required = true) Integer sal, @RequestParam(value = "deptno", required = true) Integer deptNo) {
+    public String saveEmp(Model model, @RequestParam(value = "empno", required = false, defaultValue = "null") Integer empno, @RequestParam(value = "first_name", required = true) String fName, @RequestParam(value = "last_name", required = true) String sName, @RequestParam(value = "job", required = true) String job, @RequestParam(value = "mgr", required = true) String mgr, @RequestParam(value = "hiredate", required = true) String hDate, @RequestParam(value = "salary", required = true) Integer sal, @RequestParam(value = "deptno", required = true) Integer deptNo, @RequestParam(value = "start", required = true) String start, @RequestParam(value = "end", required = true) String end, @RequestParam(value = "type", required = true) Integer type) {
         logger.info("Start saving...");
         EMPLOYEES employee = new EMPLOYEES();
         employeesService = new EmployeesService();
+        timeOffService = new TimeOffService();
         Integer findedMgr = 0;
 
         List<EMPLOYEES> employees = employeesService.getAll();
@@ -139,7 +165,30 @@ public class EmployeeController {
             employee.setSal(sal);
             employee.setDeptNo(deptNo);
         }
-        employeesService.addEmp(employee);
+
+
+        logger.info("Creating time off...");
+        java.util.Date startDate = null;
+        java.util.Date endDate = null;
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("mm-dd-yyyy");
+
+            try {
+                startDate = formatter.parse(start);
+                endDate = formatter.parse(end);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } catch (org.springframework.beans.ConversionNotSupportedException e) {
+            logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        TIMEOFF timeoff = new TIMEOFF();
+        timeoff.setEmpno(empno);
+        timeoff.setStartdate(new Date(startDate.getTime()));
+        timeoff.setEnddate(new Date(endDate.getTime()));
+        timeoff.setType(type);
+
+        employeesService.addEmp(employee, timeoff);
 
 
         logger.info("Creating employee service...");

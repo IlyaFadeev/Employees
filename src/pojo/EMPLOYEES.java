@@ -1,6 +1,7 @@
 package pojo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.sql.Date;
  */
 @Entity
 @Table(name = "EMPLOYEES")
-public class EMPLOYEES {
+public class EMPLOYEES implements Serializable {
     @Id
     @Column(name = "EMPNO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EMPLOYEE")
@@ -93,4 +94,5 @@ public class EMPLOYEES {
     public void setDeptNo(Integer deptNo) {
         this.deptNo = deptNo;
     }
+
 }
