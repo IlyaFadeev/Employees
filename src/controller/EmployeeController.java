@@ -449,4 +449,16 @@ public class EmployeeController {
         return "mainPage";
     }
 
+    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    public String report(Model model){
+        employeesService = new EmployeesService();
+        timeOffService = new TimeOffService();
+        List<TIMEOFF> timeoffs = timeOffService.getAll();
+        List<EMPLOYEES> emps = employeesService.getAll();
+        model.addAttribute("emps", emps);
+        model.addAttribute("time", timeoffs);
+
+        return "report";
+    }
+
 }

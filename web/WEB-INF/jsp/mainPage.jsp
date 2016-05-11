@@ -24,7 +24,7 @@
     <li><a href="directories">Directories</a></li>
     <li><a href="filter">Find an employee</a></li>
     <li><a href="update">Recruit an employee</a></li>
-    <li><a>Fire an employee</a></li>
+    <li><a href="report">Fire an employee</a></li>
 </ul>
 </body>
 </html>
