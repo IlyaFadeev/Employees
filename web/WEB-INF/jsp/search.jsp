@@ -10,72 +10,72 @@
 <html>
 <head>
     <title>Search</title>
-  <style type="text/css">
-    <%@ include file="styles.css" %>
-  </style>
-  <h1>
-    <a href="mainPage">Main page</a>
-  </h1>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
+    <h1>
+        <a href="mainPage">Main page</a>
+    </h1>
 </head>
 <body>
 <h1>
-  Search result:
+    Search result:
 </h1>
-<table border="solid" bgcolor="#fffafa"  cellpadding="7" class="tablestyle">
-  <tr>
-    <td>
-      Name
-    </td>
-    <td>
-      Surname
-    </td>
-    <td>
-      Hiredate
-    </td>
-    <td>
-      Job
-    </td>
-    <td>
-      Manager
-    </td>
-    <td>
-      Salary
-    </td>
-    <td>
-
-    </td>
-    <td>
-
-    </td>
-  </tr>
-  <c:forEach var="listValue" items="${employees}">
+<table border="solid" bgcolor="#fffafa" cellpadding="7" class="tablestyle">
     <tr>
-      <td>
-        <a href="employees?empno= ${listValue.empNo}">${listValue.firstName}</a>
-      </td>
-      <td>
-          ${listValue.secondName}
-      </td>
-      <td>
-          ${listValue.hireDate}
-      </td>
-      <td>
-          ${listValue.job}
-      </td>
-      <td>
-          ${listValue.mgr}
-      </td>
-      <td>
-          ${listValue.sal}
-      </td>
-      <td>
-        <a href="remove?empno=${listValue.empNo}">remove</a>
-      </td>
-      <td>
-        <a href="update?empno=${listValue.empNo}">edit</a>
-      </td>
+        <td>
+            Name
+        </td>
+        <td>
+            Surname
+        </td>
+        <td>
+            Hiredate
+        </td>
+        <td>
+            Job
+        </td>
+        <td>
+            Manager
+        </td>
+        <td>
+            Salary
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
     </tr>
-  </c:forEach>
+    <c:forEach var="listValue" items="${employees}">
+        <tr>
+            <td>
+                <a href="employees?empno= ${listValue.empNo}">${listValue.firstName}</a>
+            </td>
+            <td>
+                    ${listValue.secondName}
+            </td>
+            <td>
+                    ${listValue.hireDate}
+            </td>
+            <td>
+                    ${listValue.job}
+            </td>
+            <td>
+                    ${listValue.mgr}
+            </td>
+            <td>
+                    ${listValue.sal}
+            </td>
+            <td>
+                <a href="remove?empno=${listValue.empNo}">remove</a>
+            </td>
+            <td>
+                <a href="update?empno=${listValue.empNo}">edit</a>
+            </td>
+        </tr>
+    </c:forEach>
 
 </table>
 </body>

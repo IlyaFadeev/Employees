@@ -9,47 +9,52 @@
 <html>
 <head>
     <title>Search</title>
-  <style type="text/css">
-    <%@ include file="styles.css" %>
-  </style>
-  <h1>
-    <a href="mainPage">Main page</a>
-  </h1>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
+    <h1>
+        <a href="mainPage">Main page</a>
+    </h1>
 </head>
 <body>
 <form action="search">
-  <h3>
-    Name:
-  </h3>
-  <input type="text" name="name">
-  <br>
-  <h3>
-    Surname:
-  </h3>
-  <input type="text" name="surname">
-  <br>
-  <h3>
-    Hire date:
-  </h3>
-  <input type="date" name="hiredate">
-  <br>
-  <h3>
-    Job:
-  </h3>
-  <input type="text" name="job">
-  <br>
-  <h3>
-    Manager:
-  </h3>
-  <input type="text" name="mgr">
-  <br>
-  <h3>
-    Salary:
-  </h3>
-  <input type="text" name="sal">
-  <br>
-  <br>
-  <input type="submit" value="search">
+    <h3>
+        Name:
+    </h3>
+    <input type="text" name="name">
+    <br>
+
+    <h3>
+        Surname:
+    </h3>
+    <input type="text" name="surname">
+    <br>
+
+    <h3>
+        Hire date:
+    </h3>
+    <input type="date" name="hiredate">
+    <br>
+
+    <h3>
+        Job:
+    </h3>
+    <input type="text" name="job">
+    <br>
+
+    <h3>
+        Manager:
+    </h3>
+    <input type="text" name="mgr">
+    <br>
+
+    <h3>
+        Salary:
+    </h3>
+    <input type="text" name="sal">
+    <br>
+    <br>
+    <input type="submit" value="search">
 </form>
 </body>
 </html>

@@ -9,13 +9,13 @@
 
 <html>
 <head>
-  <title>Error</title>
-  <style type="text/css">
-    <%@ include file="styles.css" %>
-  </style>
-  <h1>
-    <a href="mainPage">Main page</a>
-  </h1>
+    <title>Error</title>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
+    <h1>
+        <a href="mainPage">Main page</a>
+    </h1>
 </head>
 
 <body>

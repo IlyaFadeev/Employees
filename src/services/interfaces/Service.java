@@ -8,5 +8,6 @@ import org.hibernate.Session;
  */
 public interface Service {
     Session getSession();
+
     void close();
 }

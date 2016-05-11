@@ -4,15 +4,19 @@ body {
 
 .tablestyle {
     font-size: 1.2em;
-    background-color: lightblue ;
+    background-color: lightblue;
     margin-top: 20px;
     border: 3px solid black;
     border-radius: 10px;
 }
 
-.tablestyle table {border-spacing: 5px;}
+.tablestyle table {
+    border-spacing: 5px;
+}
 
-.tablestyle tr {background-color: lightgreen;}
+.tablestyle tr {
+    background-color: lightgreen;
+}
 
 .tablestyle td {
     border: 3px solid grey;

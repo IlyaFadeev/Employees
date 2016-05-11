@@ -11,12 +11,14 @@ import pojo.EMPLOYEES;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 /**
  * Created by Ilia Komarov on 25.04.2016.
  */
 public class DepartmentService extends SessionService {
 
+    Logger logger = Logger.getLogger(DepartmentService.class.getName());
 
     public DepartmentService() {
         super(DEPARTMENTS.class);
@@ -27,38 +29,81 @@ public class DepartmentService extends SessionService {
         Session session = getSession();
         String tableName = "DEPARTMENTS";
         Query query = session.createQuery("FROM " + tableName);
-        return query.list();
+        try {
+            List<DEPARTMENTS> departmentses = query.list();
+            return departmentses;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            logger.info("Get all exception!");
+        } finally {
+            close();
+        }
+
+        return null;
     }
 
     public DEPARTMENTS getDeptByNo(Integer deptno) {
         Session session = getSession();
-        session.beginTransaction();
-        DEPARTMENTS dept = (DEPARTMENTS) session.get(DEPARTMENTS.class, deptno);
-        session.getTransaction().commit();
-        return dept;
+        try {
+            session.beginTransaction();
+            DEPARTMENTS dept = (DEPARTMENTS) session.get(DEPARTMENTS.class, deptno);
+            session.getTransaction().commit();
+            return dept;
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            logger.info("Transaction rollback!");
+        } finally {
+            close();
+        }
+
+        return null;
     }
 
     public List<EMPLOYEES> getEmpByDept(Integer deptno) {
         Session session = new EmployeesService().getSession();
-        session.beginTransaction();
-        Criteria crit = session.createCriteria(EMPLOYEES.class);
-        crit.add(Restrictions.eq("deptNo", deptno));
-        List<EMPLOYEES> res = crit.list();
-        session.getTransaction().commit();
-        return res;
+        try {
+            session.beginTransaction();
+            Criteria crit = session.createCriteria(EMPLOYEES.class);
+            crit.add(Restrictions.eq("deptNo", deptno));
+            List<EMPLOYEES> res = crit.list();
+            session.getTransaction().commit();
+            return res;
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            logger.info("Transaction rollback!");
+        } finally {
+            close();
+        }
+
+        return null;
     }
 
     public void updateDept(DEPARTMENTS department) {
         Session session = getSession();
-        session.beginTransaction();
-        session.saveOrUpdate(department);
-        session.getTransaction().commit();
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(department);
+            session.getTransaction().commit();
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            logger.info("Transaction rollback!");
+        } finally {
+            close();
+        }
     }
 
     public void removeDept(DEPARTMENTS department) {
         Session session = getSession();
-        session.beginTransaction();
-        session.delete(department);
-        session.getTransaction().commit();
+        try {
+            session.beginTransaction();
+            session.delete(department);
+            session.getTransaction().commit();
+        } catch (RuntimeException e) {
+            session.getTransaction().rollback();
+            logger.info("Transaction rollback!");
+        } finally {
+            close();
+        }
+
     }
 }

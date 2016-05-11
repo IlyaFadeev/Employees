@@ -6,8 +6,8 @@ import javax.persistence.*;
  * Created by Fadeev on 4/18/2016.
  */
 @Entity
-@Table(name="LOCATE")
-public class LOCATE implements Directory{
+@Table(name = "LOCATE")
+public class LOCATE implements Directory {
     @Id
     @Column(name = "LNAME")
     private String lname;

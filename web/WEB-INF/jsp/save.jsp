@@ -9,12 +9,12 @@
 <html>
 <head>
     <title>Save</title>
-  <style type="text/css">
-    <%@ include file="styles.css" %>
-  </style>
-  <h1>
-    <a href="mainPage">Main page</a>
-  </h1>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
+    <h1>
+        <a href="mainPage">Main page</a>
+    </h1>
 </head>
 <body>
 

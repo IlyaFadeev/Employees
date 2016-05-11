@@ -41,7 +41,7 @@
     <select name="mgr">
         <c:forEach var="listValue" items="${emps}">
             <option <c:if test="${listValue.empNo.equals(dept.manager)}">selected</c:if>>
-                ${listValue.firstName} ${listValue.secondName}
+                    ${listValue.firstName} ${listValue.secondName}
             </option>
         </c:forEach>
     </select>

@@ -20,57 +20,58 @@
 </head>
 <body>
 <h1>${pagetitle}</h1>
-<div class="tablestyle">
-<table class="tablestyle">
-    <tr class="title">
-        <td>
-            Name
-        </td>
-        <td>
-            Surname
-        </td>
-        <td>
-            Hiredate
-        </td>
-        <td>
-            Job
-        </td>
-        <td>
-            Manager
-        </td>
-        <td>
-            Salary
-        </td>
-        <td>
 
-        </td>
-    </tr>
-    <c:forEach var="listValue" items="${emps}">
-        <tr>
+<div class="tablestyle">
+    <table class="tablestyle">
+        <tr class="title">
             <td>
-                    ${listValue.firstName}
+                Name
             </td>
             <td>
-                    ${listValue.secondName}
+                Surname
             </td>
             <td>
-                    ${listValue.hireDate}
+                Hiredate
             </td>
             <td>
-                    ${listValue.job}
+                Job
             </td>
             <td>
-                    ${listValue.mgr}
+                Manager
             </td>
             <td>
-                    ${listValue.sal}
+                Salary
             </td>
             <td>
-                <a href="employees?empno=${listValue.empNo}">View full info</a>
+
             </td>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach var="listValue" items="${emps}">
+            <tr>
+                <td>
+                        ${listValue.firstName}
+                </td>
+                <td>
+                        ${listValue.secondName}
+                </td>
+                <td>
+                        ${listValue.hireDate}
+                </td>
+                <td>
+                        ${listValue.job}
+                </td>
+                <td>
+                        ${listValue.mgr}
+                </td>
+                <td>
+                        ${listValue.sal}
+                </td>
+                <td>
+                    <a href="employees?empno=${listValue.empNo}">View full info</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
 </body>
 </html>

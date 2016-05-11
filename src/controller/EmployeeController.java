@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pojo.*;
 import services.*;
+
 import javax.persistence.NoResultException;
 import java.sql.Date;
 import java.text.ParseException;
@@ -205,8 +206,11 @@ public class EmployeeController {
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
     public String remove(Model model, @RequestParam(value = "empno", required = true, defaultValue = "1450") Integer empno) {
         employeesService = new EmployeesService();
+        timeOffService = new TimeOffService();
         EMPLOYEES employee = employeesService.getEmp(empno);
+        TIMEOFF timeoff = timeOffService.get(empno);
         employeesService.removeEmp(employee);
+        timeOffService.removeTimeOff(timeoff);
         model.addAttribute("name", employee.getFirstName());
         return "remove";
     }
@@ -218,15 +222,21 @@ public class EmployeeController {
         jobService = new JobService();
         locateService = new LocateService();
         deptService = new DepartmentService();
+        timeOffService = new TimeOffService();
+        timeOffTypesService = new TimeOffTypesService();
         List<EMPLOYEES> employees = employeesService.getAll();
         List<JOB> jobs = jobService.getAll();
         List<LOCATE> locates = locateService.getAll();
         List<DEPARTMENTS> depts = deptService.getAll();
+        TIMEOFF timeoffs = timeOffService.get(empno);
+        List<TIMEOFFTYPES> timeofftypes = timeOffTypesService.getAll();
         model.addAttribute("empls", employees);
         model.addAttribute("jobs", jobs);
         model.addAttribute("locates", locates);
         model.addAttribute("employee", employee);
         model.addAttribute("depts", depts);
+        model.addAttribute("time", timeoffs);
+        model.addAttribute("types", timeofftypes);
         return "update";
     }
 

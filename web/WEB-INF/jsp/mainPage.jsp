@@ -17,14 +17,14 @@
     </h1>
 </head>
 <body>
-    <h1>Menu</h1>
-    <ul>
-        <li><a href="getallemps">Employees</a></li>
-        <li><a href="departments">Departments</a></li>
-        <li><a href="directories">Directories</a></li>
-        <li><a href="filter">Find an employee</a></li>
-        <li><a href="update">Recruit an employee</a></li>
-        <li><a>Fire an employee</a></li>
-    </ul>
+<h1>Menu</h1>
+<ul>
+    <li><a href="getallemps">Employees</a></li>
+    <li><a href="departments">Departments</a></li>
+    <li><a href="directories">Directories</a></li>
+    <li><a href="filter">Find an employee</a></li>
+    <li><a href="update">Recruit an employee</a></li>
+    <li><a>Fire an employee</a></li>
+</ul>
 </body>
 </html>

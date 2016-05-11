@@ -9,16 +9,16 @@
 <html>
 <head>
     <title>Remove</title>
-  <style type="text/css">
-    <%@ include file="styles.css" %>
-  </style>
-  <h1>
-    <a href="mainPage">Main page</a>
-  </h1>
+    <style type="text/css">
+        <%@ include file="styles.css" %>
+    </style>
+    <h1>
+        <a href="mainPage">Main page</a>
+    </h1>
 </head>
 <body>
 <h1>
-  Employee with name ${name} removed!
+    Employee with name ${name} removed!
 </h1>
 
 <a href="employees">back</a>

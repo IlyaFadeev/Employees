@@ -18,44 +18,44 @@
     </h1>
 </head>
 <body>
-    <h1>Jobs:</h1>
-    <table>
-        <c:forEach var="list" items="${jobs}">
-            <tr>
-                <td>${list.jname}</td>
-                <td><a href="updatedir?type=job&dir=${list.jname}">Edit</a></td>
-            </tr>
-        </c:forEach>
-    </table>
-    <form action="updatedir">
-        <input type="hidden" name="type" value="job">
-        <input type="submit" value="Add job">
-    </form>
-    <h1>Locations:</h1>
-    <table>
-        <c:forEach var="list" items="${locates}">
-            <tr>
-                <td>${list.lname}</td>
-                <td><a href="updatedir?type=loc&dir=${list.lname}">Edit</a></td>
-            </tr>
-        </c:forEach>
-    </table>
-    <form action="updatedir">
-        <input type="hidden" name="type" value="loc">
-        <input type="submit" value="Add location">
-    </form>
-    <h1>Types of time off:</h1>
-    <table>
-        <c:forEach var="list" items="${timeofftypes}">
-            <tr>
-                <td>${list.type}</td>
-                <td><a href="updatedir?type=timeoff&dir=${list.type}">Edit</a></td>
-            </tr>
-        </c:forEach>
-    </table>
-    <form action="updatedir">
-        <input type="hidden" name="type" value="timeoff">
-        <input type="submit" value="Add type of time off">
-    </form>
+<h1>Jobs:</h1>
+<table>
+    <c:forEach var="list" items="${jobs}">
+        <tr>
+            <td>${list.jname}</td>
+            <td><a href="updatedir?type=job&dir=${list.jname}">Edit</a></td>
+        </tr>
+    </c:forEach>
+</table>
+<form action="updatedir">
+    <input type="hidden" name="type" value="job">
+    <input type="submit" value="Add job">
+</form>
+<h1>Locations:</h1>
+<table>
+    <c:forEach var="list" items="${locates}">
+        <tr>
+            <td>${list.lname}</td>
+            <td><a href="updatedir?type=loc&dir=${list.lname}">Edit</a></td>
+        </tr>
+    </c:forEach>
+</table>
+<form action="updatedir">
+    <input type="hidden" name="type" value="loc">
+    <input type="submit" value="Add location">
+</form>
+<h1>Types of time off:</h1>
+<table>
+    <c:forEach var="list" items="${timeofftypes}">
+        <tr>
+            <td>${list.type}</td>
+            <td><a href="updatedir?type=timeoff&dir=${list.type}">Edit</a></td>
+        </tr>
+    </c:forEach>
+</table>
+<form action="updatedir">
+    <input type="hidden" name="type" value="timeoff">
+    <input type="submit" value="Add type of time off">
+</form>
 </body>
 </html>

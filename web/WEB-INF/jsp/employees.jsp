@@ -5,7 +5,8 @@
   Time: 2:02 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %><%@ page import="pojo.EMPLOYEES" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="pojo.EMPLOYEES" %>
 <%@ page import="services.TimeOffService" %>
 <%@ page import="pojo.TIMEOFF" %>
 <%@ page import="org.joda.time.DateTime" %>
@@ -27,55 +28,56 @@
 <h1>
     Employee:
 </h1>
+
 <div class="tablestyle">
-<table class="tablestyle">
-    <tr>
-        <td>
-            Name
-        </td>
-        <td>
-            Surname
-        </td>
-        <td>
-            Hiredate
-        </td>
-        <td>
-            Job
-        </td>
-        <td>
-            Manager
-        </td>
-        <td>
-            Salary
-        </td>
-        <td>
-            Time off
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-    </tr>
+    <table class="tablestyle">
         <tr>
             <td>
-                 <a href="employees?empno= ${employee.empNo}">${employee.firstName}</a>
+                Name
             </td>
             <td>
-                    ${employee.secondName}
+                Surname
             </td>
             <td>
-                    ${employee.hireDate}
+                Hiredate
             </td>
             <td>
-                    ${employee.job}
+                Job
             </td>
             <td>
-                    ${employee.mgr}
+                Manager
             </td>
             <td>
-                    ${employee.sal}
+                Salary
+            </td>
+            <td>
+                Time off
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="employees?empno= ${employee.empNo}">${employee.firstName}</a>
+            </td>
+            <td>
+                ${employee.secondName}
+            </td>
+            <td>
+                ${employee.hireDate}
+            </td>
+            <td>
+                ${employee.job}
+            </td>
+            <td>
+                ${employee.mgr}
+            </td>
+            <td>
+                ${employee.sal}
             </td>
             <td>
 
@@ -90,136 +92,137 @@
             </td>
         </tr>
 
-</table>
+    </table>
 </div>
 
 
 <h1>
     Managers:
 </h1>
+
 <div class="tablestyle">
-<table class="tablestyle">
-    <tr>
-        <td>
-            Name
-        </td>
-        <td>
-            Surname
-        </td>
-        <td>
-            Hiredate
-        </td>
-        <td>
-            Job
-        </td>
-        <td>
-            Manager
-        </td>
-        <td>
-            Salary
-        </td>
-        <td>
+    <table class="tablestyle">
+        <tr>
+            <td>
+                Name
+            </td>
+            <td>
+                Surname
+            </td>
+            <td>
+                Hiredate
+            </td>
+            <td>
+                Job
+            </td>
+            <td>
+                Manager
+            </td>
+            <td>
+                Salary
+            </td>
+            <td>
 
-        </td>
-        <td>
+            </td>
+            <td>
 
-        </td>
-    </tr>
-<c:forEach var="listValue" items="${mgrs}">
-  <tr>
- <td>
-  <a href="employees?empno= ${listValue.empNo}">${listValue.firstName}</a>
- </td>
-  <td>
-      ${listValue.secondName}
-  </td>
-  <td>
-      ${listValue.hireDate}
-  </td>
-  <td>
-      ${listValue.job}
-  </td>
-  <td>
-      ${listValue.mgr}
-  </td>
-  <td>
-      ${listValue.sal}
-  </td>
-      <td>
-          <a href="remove?empno=${listValue.empNo}">remove</a>
-      </td>
-      <td>
-      <a href="update?empno=${listValue.empNo}">edit</a>
-      </td>
-  </tr>
-</c:forEach>
+            </td>
+        </tr>
+        <c:forEach var="listValue" items="${mgrs}">
+            <tr>
+                <td>
+                    <a href="employees?empno= ${listValue.empNo}">${listValue.firstName}</a>
+                </td>
+                <td>
+                        ${listValue.secondName}
+                </td>
+                <td>
+                        ${listValue.hireDate}
+                </td>
+                <td>
+                        ${listValue.job}
+                </td>
+                <td>
+                        ${listValue.mgr}
+                </td>
+                <td>
+                        ${listValue.sal}
+                </td>
+                <td>
+                    <a href="remove?empno=${listValue.empNo}">remove</a>
+                </td>
+                <td>
+                    <a href="update?empno=${listValue.empNo}">edit</a>
+                </td>
+            </tr>
+        </c:forEach>
 
-</table>
-    </div>
+    </table>
+</div>
 
 <h1>
     Sub employees:
 </h1>
 
 <div class="tablestyle">
-<table class="tablestyle">
+    <table class="tablestyle">
 
-    <tr>
-        <td>
-            Name
-        </td>
-        <td>
-            Surname
-        </td>
-        <td>
-            Hiredate
-        </td>
-        <td>
-            Job
-        </td>
-        <td>
-            Manager
-        </td>
-        <td>
-            Salary
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-    </tr>
-    <c:forEach var="listValue" items="${subEmp}">
         <tr>
             <td>
-                 <a href="employees?empno= ${listValue.empNo}">${listValue.firstName}</a>
+                Name
             </td>
             <td>
-                    ${listValue.secondName}
+                Surname
             </td>
             <td>
-                    ${listValue.hireDate}
+                Hiredate
             </td>
             <td>
-                    ${listValue.job}
+                Job
             </td>
             <td>
-                    ${listValue.mgr}
+                Manager
             </td>
             <td>
-                    ${listValue.sal}
+                Salary
             </td>
             <td>
-                <a href="remove?empno=${listValue.empNo}">remove</a>
+
             </td>
             <td>
-                <a href="update?empno=${listValue.empNo}">edit</a>
+
             </td>
         </tr>
-    </c:forEach>
+        <c:forEach var="listValue" items="${subEmp}">
+            <tr>
+                <td>
+                    <a href="employees?empno= ${listValue.empNo}">${listValue.firstName}</a>
+                </td>
+                <td>
+                        ${listValue.secondName}
+                </td>
+                <td>
+                        ${listValue.hireDate}
+                </td>
+                <td>
+                        ${listValue.job}
+                </td>
+                <td>
+                        ${listValue.mgr}
+                </td>
+                <td>
+                        ${listValue.sal}
+                </td>
+                <td>
+                    <a href="remove?empno=${listValue.empNo}">remove</a>
+                </td>
+                <td>
+                    <a href="update?empno=${listValue.empNo}">edit</a>
+                </td>
+            </tr>
+        </c:forEach>
 
-</table>
+    </table>
 </div>
 <br>
 <br>
@@ -230,6 +233,7 @@
 </form>
 <br>
 <br>
+
 <form action="addemp">
     <input type="submit" value="add">
     <br>
