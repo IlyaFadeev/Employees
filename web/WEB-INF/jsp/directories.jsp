@@ -19,7 +19,8 @@
 </head>
 <body>
 <h1>Jobs:</h1>
-<table>
+<div class="tablestyle">
+<table class="tablestyle">
     <c:forEach var="list" items="${jobs}">
         <tr>
             <td>${list.jname}</td>
@@ -27,12 +28,14 @@
         </tr>
     </c:forEach>
 </table>
+</div>
 <form action="updatedir">
     <input type="hidden" name="type" value="job">
     <input type="submit" value="Add job">
 </form>
 <h1>Locations:</h1>
-<table>
+<div class="tablestyle">
+<table class="tablestyle">
     <c:forEach var="list" items="${locates}">
         <tr>
             <td>${list.lname}</td>
@@ -40,12 +43,14 @@
         </tr>
     </c:forEach>
 </table>
+</div>
 <form action="updatedir">
     <input type="hidden" name="type" value="loc">
     <input type="submit" value="Add location">
 </form>
 <h1>Types of time off:</h1>
-<table>
+<div class="tablestyle">
+<table class="tablestyle">
     <c:forEach var="list" items="${timeofftypes}">
         <tr>
             <td>${list.type}</td>
@@ -53,6 +58,7 @@
         </tr>
     </c:forEach>
 </table>
+</div>
 <form action="updatedir">
     <input type="hidden" name="type" value="timeoff">
     <input type="submit" value="Add type of time off">

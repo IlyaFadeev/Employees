@@ -23,8 +23,9 @@
 </head>
 <body>
 <h1>Departments</h1>
-<table>
-    <tr>
+<div class="tablestyle">
+<table class="tablestyle">
+    <tr class="title">
         <td>Name</td>
         <td>Location</td>
         <td>Manager</td>
@@ -40,6 +41,7 @@
         </tr>
     </c:forEach>
 </table>
+</div>
 <form action="adddept">
     <input type="submit" value="Add dept.">
 </form>
