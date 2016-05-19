@@ -29,3 +29,39 @@ body {
     color: green;
     padding: 10px;
 }
+
+.btn-link{
+    border:none;
+    outline:none;
+    background:none;
+    cursor:pointer;
+    color:#0000EE;
+    padding:0;
+    text-decoration:underline;
+    font-family:inherit;
+    font-size:inherit;
+    color: darkblue;
+}
+
+.btn-link:active{
+    color: green;
+}
+
+.btn-link:hover{
+    color: lightgreen;
+}
+
+
+
+form{
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+a:visited{
+    color: darkblue;
+}
+a:hover{
+    color: lightgreen;
+}
+
+

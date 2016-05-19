@@ -18,7 +18,7 @@
     </h1>
 </head>
 <body>
-<form action="save">
+<form action="save" method="post">
     <label>Emp no:</label>
     <input type="text" name="empno" value="${employee.empNo}" READONLY>
     <br>

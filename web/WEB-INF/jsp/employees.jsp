@@ -23,13 +23,16 @@
     <h1>
         <a href="mainPage">Main page</a>
     </h1>
+    <h3>
+        <a href="getallemps">Back to employees list</a>
+
+    </h3>
 </head>
 
 <h1>
     Employee:
 </h1>
 
-<div class="tablestyle">
     <table class="tablestyle">
         <tr>
             <td>
@@ -93,14 +96,12 @@
         </tr>
 
     </table>
-</div>
 
 
 <h1>
     Managers:
 </h1>
 
-<div class="tablestyle">
     <table class="tablestyle">
         <tr>
             <td>
@@ -158,13 +159,11 @@
         </c:forEach>
 
     </table>
-</div>
 
 <h1>
     Sub employees:
 </h1>
 
-<div class="tablestyle">
     <table class="tablestyle">
 
         <tr>
@@ -223,18 +222,19 @@
         </c:forEach>
 
     </table>
-</div>
 <br>
 <br>
 <br>
 
-<form action="filter">
+
+
+<form action="filter" method="POST">
     <input type="submit" value="filters">
 </form>
 <br>
 <br>
 
-<form action="addemp">
+<form action="addemp" method="POST">
     <input type="submit" value="add">
     <br>
     <br>

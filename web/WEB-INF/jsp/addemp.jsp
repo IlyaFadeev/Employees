@@ -21,7 +21,7 @@
 <body>
 
 
-<form action="save">
+<form action="save" method="post">
     <input type="text" name="empno" value="${employee.empNo}" READONLY hidden>
     <label>First name:</label>
     <input type="text" name="first_name">
@@ -42,7 +42,7 @@
     </select>
     <br>
     <br>
-    <label>MGR:</label>
+    <label>Manager:</label>
     <select name="mgr">
         <c:forEach var="listValue" items="${empls}">
             <option>
@@ -61,7 +61,7 @@
     <input type="text" name="salary">
     <br>
     <br>
-    <label>Dept no:</label>
+    <label>Department number:</label>
     <select name="deptno">
         <c:forEach var="listValue" items="${dept}">
             <option>
@@ -73,15 +73,15 @@
     <br>
     <br>
     <br>
-    <label>Start date:</label>
+    <label>Start time off date:</label>
     <input type="date" name="start">
     <br>
     <br>
-    <label>End date:</label>
+    <label>End time off date:</label>
     <input type="date" name="end">
     <br>
     <br>
-    <label>Type:</label>
+    <label>Type of time off:</label>
     <select name="type">
         <c:forEach var="listValue" items="${types}">
             <option>

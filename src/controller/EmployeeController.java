@@ -52,10 +52,11 @@ public class EmployeeController {
 
         logger.info("Getting all managers for current employee...");
         List<EMPLOYEES> mgrs = employeesService.getAllMgrForEmp(empno);
-
+        if (mgrs != null && mgrs.size() > 0) mgrs.remove(0);
 
         logger.info("Getting all sub employees for current employee...");
         List<EMPLOYEES> subEmployees = employeesService.getAllSubEmpForEmp(empno);
+        if (subEmployees != null && subEmployees.size() > 0) subEmployees.remove(0);
 
         logger.info("Getting all times off for employees...");
         List<TIMEOFF> timeoffs = timeOffService.getAll();
@@ -80,7 +81,7 @@ public class EmployeeController {
         return "employees";
     }
 
-    @RequestMapping(value = "/addemp", method = RequestMethod.GET)
+    @RequestMapping(value = "/addemp", method = RequestMethod.POST)
     public String addEmp(Model model) {
         logger.info("Return add page.");
         employeesService = new EmployeesService();
@@ -100,7 +101,7 @@ public class EmployeeController {
         return "addemp";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.GET)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveEmp(Model model, @RequestParam(value = "empno", required = false, defaultValue = "null") Integer empno, @RequestParam(value = "first_name", required = true) String fName, @RequestParam(value = "last_name", required = true) String sName, @RequestParam(value = "job", required = true) String job, @RequestParam(value = "mgr", required = true) String mgr, @RequestParam(value = "hiredate", required = true) String hDate, @RequestParam(value = "salary", required = true) Integer sal, @RequestParam(value = "deptno", required = true) Integer deptNo, @RequestParam(value = "start", required = true) String start, @RequestParam(value = "end", required = true) String end, @RequestParam(value = "type", required = true) Integer type) {
         logger.info("Start saving...");
         EMPLOYEES employee = new EMPLOYEES();
@@ -135,7 +136,7 @@ public class EmployeeController {
                 Date date1 = new Date(date.getTime());
                 employee.setHireDate(date1);
             } catch (org.springframework.beans.ConversionNotSupportedException e) {
-                logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                logger.info("Conversion not supported!");
             }
 
             employee.setMgr(findedMgr);
@@ -159,7 +160,7 @@ public class EmployeeController {
                 Date date1 = new Date(date.getTime());
                 employee.setHireDate(date1);
             } catch (org.springframework.beans.ConversionNotSupportedException e) {
-                logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                logger.info("Conversion not supported!");
             }
 
             employee.setMgr(findedMgr);
@@ -181,7 +182,7 @@ public class EmployeeController {
                 e.printStackTrace();
             }
         } catch (org.springframework.beans.ConversionNotSupportedException e) {
-            logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            logger.info("Conversion not supported!");
         }
         TIMEOFF timeoff = new TIMEOFF();
         timeoff.setEmpno(empno);
@@ -215,7 +216,7 @@ public class EmployeeController {
         return "remove";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(Model model, @RequestParam(value = "empno", required = true, defaultValue = "1450") Integer empno) {
         employeesService = new EmployeesService();
         EMPLOYEES employee = employeesService.getEmp(empno);
@@ -240,7 +241,7 @@ public class EmployeeController {
         return "update";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(Model model, @RequestParam(value = "name", required = false, defaultValue = "null") String name, @RequestParam(value = "surname", required = false, defaultValue = "null") String surname, @RequestParam(value = "hiredate", required = false, defaultValue = "null") String hDAte, @RequestParam(value = "job", required = false, defaultValue = "null") String job, @RequestParam(value = "mgr", required = false, defaultValue = "null") String mgr, @RequestParam(value = "sal", required = false, defaultValue = "null") String sal) {
         boolean[] filters = new boolean[6];
         employeesService = new EmployeesService();
@@ -294,7 +295,7 @@ public class EmployeeController {
             }
             date1 = new Date(date.getTime());
         } catch (org.springframework.beans.ConversionNotSupportedException e) {
-            logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            logger.info("Conversion not supported!");
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -305,7 +306,7 @@ public class EmployeeController {
         return "search";
     }
 
-    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    @RequestMapping(value = "/filter", method = RequestMethod.POST)
     public String searchWithFilters(Model model) {
 
         return "filters";
@@ -333,7 +334,7 @@ public class EmployeeController {
         return "employeesfull";
     }
 
-    @RequestMapping(value = "/savedept", method = RequestMethod.GET)
+    @RequestMapping(value = "/savedept", method = RequestMethod.POST)
     public String saveDept(Model model, @RequestParam(name = "deptno", required = false) String deptno, @RequestParam(name = "dname", required = true, defaultValue = "") String dname, @RequestParam(name = "location", required = true, defaultValue = "") String location, @RequestParam(name = "mgr", required = true, defaultValue = "") String manager) {
         DepartmentService departmentService = new DepartmentService();
         DEPARTMENTS dept;
@@ -357,7 +358,7 @@ public class EmployeeController {
         return "redirect:departments";
     }
 
-    @RequestMapping(value = "/updatedept", method = RequestMethod.GET)
+    @RequestMapping(value = "/updatedept", method = RequestMethod.POST)
     public String updateDept(Model model, @RequestParam(value = "deptno", required = true, defaultValue = "null") Integer deptno) {
         deptService = new DepartmentService();
         employeesService = new EmployeesService();
@@ -372,7 +373,7 @@ public class EmployeeController {
         return "updateDept";
     }
 
-    @RequestMapping(value = "/adddept", method = RequestMethod.GET)
+    @RequestMapping(value = "/adddept", method = RequestMethod.POST)
     public String addDept(Model model) {
         return updateDept(model, null);
     }
@@ -391,7 +392,7 @@ public class EmployeeController {
         return "directories";
     }
 
-    @RequestMapping(value = "/updatedir", method = RequestMethod.GET)
+    @RequestMapping(value = "/updatedir", method = RequestMethod.POST)
     public String updateDirectory(Model model, @RequestParam(name = "type", required = true) String typeDir, @RequestParam(name = "dir", required = false) String dir) {
         model.addAttribute("type", typeDir);
         //model.addAttribute("dirname",dir);
@@ -414,7 +415,7 @@ public class EmployeeController {
         return "updatedir";
     }
 
-    @RequestMapping(value = "/savedir", method = RequestMethod.GET)
+    @RequestMapping(value = "/savedir", method = RequestMethod.POST)
     public String saveDir(Model model, @RequestParam(name = "type", required = true) String type, @RequestParam(name = "dir", required = true) String dir) {
         if (type.equals("job")) {
             jobService = new JobService();

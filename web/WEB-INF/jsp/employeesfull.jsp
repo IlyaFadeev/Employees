@@ -21,7 +21,6 @@
 <body>
 <h1>${pagetitle}</h1>
 
-<div class="tablestyle">
     <table class="tablestyle">
         <tr class="title">
             <td>
@@ -42,14 +41,11 @@
             <td>
                 Salary
             </td>
-            <td>
-
-            </td>
         </tr>
         <c:forEach var="listValue" items="${emps}">
             <tr>
                 <td>
-                        ${listValue.firstName}
+                    <a href="employees?empno=${listValue.empNo}">${listValue.firstName}</a>
                 </td>
                 <td>
                         ${listValue.secondName}
@@ -66,12 +62,10 @@
                 <td>
                         ${listValue.sal}
                 </td>
-                <td>
-                    <a href="employees?empno=${listValue.empNo}">View full info</a>
-                </td>
+
             </tr>
         </c:forEach>
     </table>
-</div>
+
 </body>
 </html>

@@ -18,7 +18,7 @@
     </h1>
 </head>
 <body>
-<form action="savedept">
+<form action="savedept" method="post">
     <label>Dept no:</label>
     <input type="text" name="deptno" value="${dept.deptno}" READONLY>
     <br>

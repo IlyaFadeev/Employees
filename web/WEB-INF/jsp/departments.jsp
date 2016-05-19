@@ -23,7 +23,7 @@
 </head>
 <body>
 <h1>Departments</h1>
-<table>
+<table class="tablestyle">
     <tr>
         <td>Name</td>
         <td>Location</td>
@@ -36,11 +36,11 @@
             <td>${listDepts.location}</td>
             <td>${listDepts.manager}</td>
             <td><a href="employeesfull?deptno=${listDepts.deptno}">Employees of dept.</a></td>
-            <td><a href="updatedept?deptno=${listDepts.deptno}">Update</a></td>
+            <td><a href="updatedept?deptno=${listDepts.deptno}">Edit</a></td>
         </tr>
     </c:forEach>
 </table>
-<form action="adddept">
+<form action="adddept" method="post">
     <input type="submit" value="Add dept.">
 </form>
 </body>

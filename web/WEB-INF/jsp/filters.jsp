@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Fadeev
@@ -17,40 +18,40 @@
     </h1>
 </head>
 <body>
-<form action="search">
-    <h3>
+<form action="search" method="post">
+    <label>
         Name:
-    </h3>
+    </label>
     <input type="text" name="name">
     <br>
-
-    <h3>
+    <br>
+    <label>
         Surname:
-    </h3>
+    </label>
     <input type="text" name="surname">
     <br>
-
-    <h3>
+    <br>
+    <label>
         Hire date:
-    </h3>
+    </label>
     <input type="date" name="hiredate">
     <br>
-
-    <h3>
+    <br>
+    <label>
         Job:
-    </h3>
+    </label>
     <input type="text" name="job">
     <br>
-
-    <h3>
+    <br>
+    <label>
         Manager:
-    </h3>
+    </label>
     <input type="text" name="mgr">
     <br>
-
-    <h3>
+    <br>
+    <label>
         Salary:
-    </h3>
+    </label>
     <input type="text" name="sal">
     <br>
     <br>

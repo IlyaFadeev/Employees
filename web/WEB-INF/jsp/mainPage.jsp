@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ilia Komarov
@@ -22,9 +23,8 @@
     <li><a href="getallemps">Employees</a></li>
     <li><a href="departments">Departments</a></li>
     <li><a href="directories">Directories</a></li>
-    <li><a href="filter">Find an employee</a></li>
-    <li><a href="update">Recruit an employee</a></li>
-    <li><a href="#">Fire an employee</a></li>
+    <li><form action="filter" method="post"><button type="submit" class="btn-link">Find an employee</button></form></li>
+    <li><form action="addemp" method="post"><button type="submit" class="btn-link">Recruit an employee</button></form></li>
     <li><a href="report">Report</a></li>
 </ul>
 </body>

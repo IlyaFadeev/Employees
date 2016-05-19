@@ -17,7 +17,7 @@
     </h1>
 </head>
 <body>
-<form action="savedir">
+<form action="savedir" method="post">
     <h1>${dirtitle}</h1>
     <input type="hidden" name="type" value="${type}">
     <input type="text" name="dir" value="${dirname}">
