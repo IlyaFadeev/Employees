@@ -27,7 +27,7 @@ public class EmployeesService extends SessionService {
     public List<EMPLOYEES> getAll() {
         Session session = getSession();
         String tableName = "EMPLOYEES";
-        SQLQuery query = session.createSQLQuery("SELECT * FROM EMPLOYEES ORDER BY EMPNO");
+        SQLQuery query = session.createSQLQuery("SELECT * FROM EMPLOYEES ORDER BY FIRST_NAME");
         query.addEntity(EMPLOYEES.class);
         try {
             List<EMPLOYEES> employees = query.list();
@@ -219,6 +219,25 @@ public class EmployeesService extends SessionService {
         }
 
         return employees;
+    }
+
+
+    public EMPLOYEES getEmpByName(String name) {
+        Session session = getSession();
+        String tableName = "EMPLOYEES";
+        SQLQuery query = session.createSQLQuery("SELECT * FROM EMPLOYEES WHERE FIRST_NAME = " + name);
+        query.addEntity(EMPLOYEES.class);
+        try {
+            EMPLOYEES employee = (EMPLOYEES)query.list().get(0);
+            return employee;
+        } catch (HibernateException e) {
+            logger.info("Transaction rollback!");
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+
+        return null;
     }
 
 }

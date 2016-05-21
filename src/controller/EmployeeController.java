@@ -13,10 +13,12 @@ import services.*;
 
 import javax.persistence.NoResultException;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 /**
@@ -102,18 +104,21 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveEmp(Model model, @RequestParam(value = "empno", required = false, defaultValue = "null") Integer empno, @RequestParam(value = "first_name", required = true) String fName, @RequestParam(value = "last_name", required = true) String sName, @RequestParam(value = "job", required = true) String job, @RequestParam(value = "mgr", required = true) String mgr, @RequestParam(value = "hiredate", required = true) String hDate, @RequestParam(value = "salary", required = true) Integer sal, @RequestParam(value = "deptno", required = true) Integer deptNo, @RequestParam(value = "start", required = true) String start, @RequestParam(value = "end", required = true) String end, @RequestParam(value = "type", required = true) Integer type) {
+    public String saveEmp(Model model, @RequestParam(value = "empno", required = false, defaultValue = "null") Integer empno, @RequestParam(value = "first_name", required = true) String fName, @RequestParam(value = "last_name", required = true) String sName, @RequestParam(value = "job", required = true) String job, @RequestParam(value = "mgr", required = true, defaultValue = "NULL") String mgr, @RequestParam(value = "hiredate", required = true) String hDate, @RequestParam(value = "salary", required = true) Integer sal, @RequestParam(value = "start", required = true) String start, @RequestParam(value = "end", required = true) String end, @RequestParam(value = "type", required = true) Integer type) {
         logger.info("Start saving...");
         EMPLOYEES employee = new EMPLOYEES();
         employeesService = new EmployeesService();
         timeOffService = new TimeOffService();
+        deptService = new DepartmentService();
         Integer findedMgr = 0;
+        Integer findedDeptNo = 0;
 
         List<EMPLOYEES> employees = employeesService.getAll();
 
         for (EMPLOYEES employee1 : employees) {
             if (employee1.getFirstName().equals(mgr)) {
                 findedMgr = employee1.getEmpNo();
+                findedDeptNo = employee1.getDeptNo();
                 break;
             }
         }
@@ -125,8 +130,9 @@ public class EmployeeController {
             employee.setSecondName(sName);
             employee.setJob(job);
             logger.info("Set date!");
+
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("mm-dd-yyyy");
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                 java.util.Date date = null;
                 try {
                     date = formatter.parse(hDate);
@@ -141,7 +147,8 @@ public class EmployeeController {
 
             employee.setMgr(findedMgr);
             employee.setSal(sal);
-            employee.setDeptNo(deptNo);
+
+            employee.setDeptNo(findedDeptNo);
         } else {
             employee = employeesService.getEmp(empno);
             employee.setDeptNo(null);
@@ -150,7 +157,7 @@ public class EmployeeController {
             employee.setJob(job);
             logger.info("Set date!");
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("mm-dd-yyyy");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
                 java.util.Date date = null;
                 try {
                     date = formatter.parse(hDate);
@@ -165,7 +172,9 @@ public class EmployeeController {
 
             employee.setMgr(findedMgr);
             employee.setSal(sal);
-            employee.setDeptNo(deptNo);
+
+
+            employee.setDeptNo(findedDeptNo);
         }
 
 
@@ -173,7 +182,7 @@ public class EmployeeController {
         java.util.Date startDate = null;
         java.util.Date endDate = null;
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("mm-dd-yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
             try {
                 startDate = formatter.parse(start);
@@ -286,7 +295,7 @@ public class EmployeeController {
 
         Date date1 = null;
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("mm-dd-yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
             java.util.Date date = null;
             try {
                 date = formatter.parse(hDAte);

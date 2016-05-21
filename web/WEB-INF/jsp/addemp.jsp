@@ -61,18 +61,6 @@
     <input type="text" name="salary">
     <br>
     <br>
-    <label>Department number:</label>
-    <select name="deptno">
-        <c:forEach var="listValue" items="${dept}">
-            <option>
-                    ${listValue.deptno}
-            </option>
-        </c:forEach>
-
-    </select>
-    <br>
-    <br>
-    <br>
     <label>Start time off date:</label>
     <input type="date" name="start">
     <br>
