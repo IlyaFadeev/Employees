@@ -91,7 +91,7 @@
                 <a href="remove?empno=${employee.empNo}">remove</a>
             </td>
             <td>
-                <a href="update?empno=${employee.empNo}">edit</a>
+                <form action="update?empno=${employee.empNo}" method="post"><button type="submit" class="btn-link">edit</button></form>
             </td>
         </tr>
 
@@ -153,7 +153,7 @@
                     <a href="remove?empno=${listValue.empNo}">remove</a>
                 </td>
                 <td>
-                    <a href="update?empno=${listValue.empNo}">edit</a>
+                    <form action="update?empno=${employee.empNo}" method="post"><button type="submit" class="btn-link">edit</button></form>
                 </td>
             </tr>
         </c:forEach>
@@ -216,7 +216,7 @@
                     <a href="remove?empno=${listValue.empNo}">remove</a>
                 </td>
                 <td>
-                    <a href="update?empno=${listValue.empNo}">edit</a>
+                    <form action="update?empno=${employee.empNo}" method="post"><button type="submit" class="btn-link">edit</button></form>
                 </td>
             </tr>
         </c:forEach>
