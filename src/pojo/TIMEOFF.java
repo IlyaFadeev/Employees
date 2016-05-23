@@ -9,9 +9,13 @@ import java.sql.Date;
 @Entity
 @Table(name = "TIMEOFF")
 public class TIMEOFF {
+
+
     @Id
-    @Column(name = "EMPNO")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    @Column(name = "EMPNO")
     private Integer empno;
     @Column(name = "START_DATE")
     private Date startdate;
@@ -51,5 +55,13 @@ public class TIMEOFF {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

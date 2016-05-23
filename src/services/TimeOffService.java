@@ -23,7 +23,8 @@ public class TimeOffService extends SessionService {
     public List<TIMEOFF> getAll() {
         Session session = getSession();
         String tableName = "TIMEOFF";
-        Query query = session.createQuery("FROM " + tableName);
+        SQLQuery query = session.createSQLQuery("SELECT * FROM " + tableName);
+        query.addEntity(TIMEOFF.class);
         try {
             List<TIMEOFF> timeoffs = query.list();
             return timeoffs;
@@ -86,7 +87,7 @@ public class TimeOffService extends SessionService {
 
         try {
             session.beginTransaction();
-            SQLQuery sqlQuery = session.createSQLQuery("SELECT EMPNO, START_DATE, END_DATE, TYPENO FROM TIMEOFF WHERE EMPNO = " + empNo);
+            SQLQuery sqlQuery = session.createSQLQuery("SELECT * FROM TIMEOFF WHERE EMPNO = " + empNo);
             sqlQuery.addEntity(TIMEOFF.class);
             TIMEOFF timeoff = (TIMEOFF) sqlQuery.list().get(0);
             session.getTransaction().commit();

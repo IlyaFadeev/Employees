@@ -194,6 +194,7 @@ public class EmployeeController {
             logger.info("Conversion not supported!");
         }
         TIMEOFF timeoff = new TIMEOFF();
+        timeoff.setId(null);
         timeoff.setEmpno(empno);
         timeoff.setStartdate(new Date(startDate.getTime()));
         timeoff.setEnddate(new Date(endDate.getTime()));
@@ -463,8 +464,26 @@ public class EmployeeController {
     public String report(Model model){
         employeesService = new EmployeesService();
         timeOffService = new TimeOffService();
+        int countOfDub = 0;
+        int currCountOfDeb = 0;
         List<TIMEOFF> timeoffs = timeOffService.getAll();
+
+        for (int i = 0; i < timeoffs.size(); i++) {
+            for (int j = 0; j < timeoffs.size(); j++) {
+                if (timeoffs.get(i).getEmpno().equals(timeoffs.get(j).getEmpno())){
+                    currCountOfDeb++;
+                }
+            }
+
+            if (currCountOfDeb > countOfDub) countOfDub = currCountOfDeb;
+            currCountOfDeb = 0;
+        }
+
         List<EMPLOYEES> emps = employeesService.getAll();
+
+        int[] count = new int[countOfDub];
+
+        model.addAttribute("countOfDub", count);
         model.addAttribute("emps", emps);
         model.addAttribute("time", timeoffs);
 

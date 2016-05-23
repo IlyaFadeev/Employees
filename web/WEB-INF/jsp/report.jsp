@@ -21,7 +21,6 @@
 <body>
 <h1>${pagetitle}</h1>
 
-<div class="tablestyle">
     <table class="tablestyle">
         <tr class="title">
             <td>
@@ -42,15 +41,17 @@
             <td>
                 Salary
             </td>
-            <td>
-                Start time off date
-            </td>
-            <td>
-                End time off date
-            </td>
-            <td>
-                Type of time off
-            </td>
+            <c:forEach var="timeoff" items="${countOfDub}">
+                <td>
+                    Start time off date
+                </td>
+                <td>
+                    End time off date
+                </td>
+                <td>
+                    Type of time off
+                </td>
+            </c:forEach>
         </tr>
         <c:forEach var="listValue" items="${emps}">
             <tr>
@@ -75,7 +76,7 @@
 
 
                 <c:forEach var="timeoff" items="${time}">
-                    <c:if test="${timeoff.empno.equals(listValue.empNo)}">
+                    <c:if test="${timeoff.empno == listValue.empNo}">
                         <td>
                                 ${timeoff.startdate}
                         </td>
@@ -91,6 +92,5 @@
             </tr>
         </c:forEach>
     </table>
-</div>
 </body>
 </html>

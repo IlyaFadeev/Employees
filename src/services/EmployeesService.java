@@ -76,7 +76,8 @@ public class EmployeesService extends SessionService {
 
         try {
             session.beginTransaction();
-            Query sqlQuery = session.createSQLQuery("INSERT INTO TIMEOFF (EMPNO, START_DATE, END_DATE, TYPENO) VALUES ((SELECT MAX(EMPNO) FROM EMPLOYEES), :start, :end, :type)");
+            Query sqlQuery = session.createSQLQuery("INSERT INTO TIMEOFF (ID, EMPNO, START_DATE, END_DATE, TYPENO) VALUES (NULL , :empno, :start, :end, :type)");
+            sqlQuery.setParameter("empno", employee.getEmpNo());
             sqlQuery.setParameter("start", timeoff.getStartdate());
             sqlQuery.setParameter("end", timeoff.getEnddate());
             sqlQuery.setParameter("type", timeoff.getType());
