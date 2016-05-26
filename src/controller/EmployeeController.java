@@ -147,7 +147,7 @@ public class EmployeeController {
 
             employee.setMgr(findedMgr);
             employee.setSal(sal);
-
+            logger.info("Finded department is " + findedDeptNo);
             employee.setDeptNo(findedDeptNo);
         } else {
             employee = employeesService.getEmp(empno);
@@ -331,7 +331,7 @@ public class EmployeeController {
         return "departments";
     }
 
-    @RequestMapping(value = "/employeesfull", method = RequestMethod.GET)
+    @RequestMapping(value = "/employeesfull", method = RequestMethod.POST)
     public String getEmpsByDept(Model model, @RequestParam(value = "deptno", required = true, defaultValue = "null") String deptno) {
         deptService = new DepartmentService();
         logger.info("Getting emps.." + deptno);
@@ -402,7 +402,7 @@ public class EmployeeController {
         return "directories";
     }
 
-    @RequestMapping(value = "/updatedir", method = RequestMethod.POST)
+    @RequestMapping(value = "/updatedir", method = RequestMethod.GET)
     public String updateDirectory(Model model, @RequestParam(name = "type", required = true) String typeDir, @RequestParam(name = "dir", required = false) String dir) {
         model.addAttribute("type", typeDir);
         //model.addAttribute("dirname",dir);

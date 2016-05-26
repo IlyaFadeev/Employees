@@ -47,7 +47,7 @@
     </select>
     <br>
     <br>
-    <input type="submit" value="Update dept">
+    <input type="submit" value="Add dept">
 </form>
 </body>
 </html>

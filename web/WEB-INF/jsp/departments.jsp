@@ -35,8 +35,9 @@
             <td>${listDepts.dname}</td>
             <td>${listDepts.location}</td>
             <td>${listDepts.manager}</td>
-            <td><a href="employeesfull?deptno=${listDepts.deptno}">Employees of dept.</a></td>
-            <td><a href="updatedept?deptno=${listDepts.deptno}">Edit</a></td>
+
+            <td><form action="employeesfull?deptno=${listDepts.deptno}" method="post"><button type="submit" class="btn-link">Employees of dept.</button></form></td>
+            <td><form action="updatedept?deptno=${listDepts.deptno}" method="post"><button type="submit" class="btn-link">Edit</button></form></td>
         </tr>
     </c:forEach>
 </table>

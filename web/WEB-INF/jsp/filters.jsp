@@ -22,40 +22,40 @@
     <label>
         Name:
     </label>
-    <input type="text" name="name">
+    <input type="text" name="name" title="Enter employee name">
     <br>
     <br>
     <label>
         Surname:
     </label>
-    <input type="text" name="surname">
+    <input type="text" name="surname" title="Enter surname">
     <br>
     <br>
     <label>
         Hire date:
     </label>
-    <input type="date" name="hiredate">
+    <input type="date" name="hiredate" title="Enter hire date">
     <br>
     <br>
     <label>
         Job:
     </label>
-    <input type="text" name="job">
+    <input type="text" name="job" title="Enter job">
     <br>
     <br>
     <label>
         Manager:
     </label>
-    <input type="text" name="mgr">
+    <input type="text" name="mgr" title="Enter manager">
     <br>
     <br>
     <label>
         Salary:
     </label>
-    <input type="text" name="sal">
+    <input type="text" name="sal" title="Enter salary">
     <br>
     <br>
-    <input type="submit" value="search">
+    <input type="submit" value="search" title="Click for search">
 </form>
 </body>
 </html>

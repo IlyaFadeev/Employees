@@ -24,15 +24,15 @@
 <form action="save" method="post">
     <input type="text" name="empno" value="${employee.empNo}" READONLY hidden>
     <label>First name:</label>
-    <input type="text" name="first_name">
+    <input type="text" name="first_name" title="Enter name">
     <br>
     <br>
     <label>Last name:</label>
-    <input type="text" name="last_name">
+    <input type="text" name="last_name" title="Enter surname">
     <br>
     <br>
     <label>Job:</label>
-    <select name="job">
+    <select name="job" title="Select job">
         <c:forEach var="listValue" items="${jobs}">
             <option>
                     ${listValue.jname}
@@ -43,7 +43,8 @@
     <br>
     <br>
     <label>Manager:</label>
-    <select name="mgr">
+    <select name="mgr" title="Select manager">
+        <option>0</option>
         <c:forEach var="listValue" items="${empls}">
             <option>
                     ${listValue.firstName}
@@ -54,23 +55,23 @@
     <br>
     <br>
     <label>Hire date:</label>
-    <input type="date" name="hiredate">
+    <input type="date" name="hiredate" title="Select hire date">
     <br>
     <br>
     <label>Salary:</label>
-    <input type="text" name="salary">
+    <input type="text" name="salary" title="Enter salary">
     <br>
     <br>
     <label>Start time off date:</label>
-    <input type="date" name="start">
+    <input type="date" name="start" title="Select start time off date">
     <br>
     <br>
     <label>End time off date:</label>
-    <input type="date" name="end">
+    <input type="date" name="end" title="Select end time off date">
     <br>
     <br>
     <label>Type of time off:</label>
-    <select name="type">
+    <select name="type" title="Select type of time off">
         <c:forEach var="listValue" items="${types}">
             <option>
                     ${listValue.type}
@@ -80,7 +81,7 @@
     </select>
     <br>
     <br>
-    <input type="submit" value="save">
+    <input type="submit" value="save" title="Click for save">
 </form>
 
 </body>

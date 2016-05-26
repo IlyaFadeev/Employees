@@ -23,11 +23,12 @@
     <c:forEach var="list" items="${jobs}">
         <tr>
             <td>${list.jname}</td>
+
             <td><a href="updatedir?type=job&dir=${list.jname}">Edit</a></td>
         </tr>
     </c:forEach>
 </table>
-<form action="updatedir" method="post">
+<form action="updatedir" method="get">
     <input type="hidden" name="type" value="job">
     <input type="submit" value="Add job">
 </form>
@@ -40,7 +41,7 @@
         </tr>
     </c:forEach>
 </table>
-<form action="updatedir" method="post">
+<form action="updatedir" method="get">
     <input type="hidden" name="type" value="loc">
     <input type="submit" value="Add location">
 </form>
@@ -53,7 +54,7 @@
         </tr>
     </c:forEach>
 </table>
-<form action="updatedir" method="post">
+<form action="updatedir" method="get">
     <input type="hidden" name="type" value="timeoff">
     <input type="submit" value="Add type of time off">
 </form>

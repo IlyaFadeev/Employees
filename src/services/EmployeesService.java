@@ -74,6 +74,7 @@ public class EmployeesService extends SessionService {
             logger.info("Transaction rollback!");
         }
 
+        session = getSession();
         try {
             session.beginTransaction();
             Query sqlQuery = session.createSQLQuery("INSERT INTO TIMEOFF (ID, EMPNO, START_DATE, END_DATE, TYPENO) VALUES (NULL , :empno, :start, :end, :type)");
